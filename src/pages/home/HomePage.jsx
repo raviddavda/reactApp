@@ -1,5 +1,5 @@
 import { Button, Grid } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import nextKey from "generate-my-key";
 import CardComponent from "../../components/CardComponent";
 import { useNavigate } from "react-router-dom";
@@ -8,10 +8,10 @@ import ROUTES from "../../routes/ROUTES";
 
 const HomePage = () => {
   const [dataFromServer, setDataFromServer] = useState([]);
-
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("dude");
     axios
       .get("/cards")
       .then(({ data }) => {
