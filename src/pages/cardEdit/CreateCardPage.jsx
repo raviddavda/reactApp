@@ -7,7 +7,7 @@ import {
   Divider,
   Button,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
 import axios from "axios";
 
@@ -29,6 +29,8 @@ const CreateCardPage = () => {
     houseNumber: "",
     zip: "",
   });
+
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setInputValue((currentState) => ({
@@ -58,6 +60,7 @@ const CreateCardPage = () => {
           zip: +inputsValue.zip,
         },
       });
+      navigate(ROUTES.HOME);
     } catch (err) {
       console.log("err", err);
     }

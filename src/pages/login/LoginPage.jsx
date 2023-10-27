@@ -30,7 +30,11 @@ const LoginPage = () => {
   const handleBtnClick = async (event) => {
     try {
       event.preventDefault();
-      const { data } = await axios.post("/users/login", inputsValue);
+      const { data } = await axios.post("/users/login", {
+        email: inputsValue.email,
+        password: inputsValue.password,
+      });
+      localStorage.setItem("token", data);
       toast.success("Logged in", {
         position: "top-center",
         autoClose: 5000,

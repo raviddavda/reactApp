@@ -27,7 +27,6 @@ const CardComponent = ({
   onDeleteCard,
   onEditCard,
 }) => {
-  console.log("CardComponent");
   const handlePhoneClick = () => {
     console.log("you clicked on phone btn");
   };

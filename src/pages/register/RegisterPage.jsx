@@ -10,6 +10,9 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import ROUTES from "../../routes/ROUTES";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const [inputsValue, setInputsValue] = useState({
@@ -29,33 +32,21 @@ const RegisterPage = () => {
     zip: "",
   });
 
+  const [checked, setChecked] = useState(true);
+
+  const navigate = useNavigate();
+
   const handleInputsChange = (e) => {
-    //step 1
-    // setInputsValue((currentState) => {
-    //   currentState.firstName = e.target.value;
-    //   let newObject = { ...currentState };
-    //   return newObject;
-    // });
-
-    //step 2
-    // setInputsValue((currentState) => {
-    //   currentState[e.target.id] = e.target.value;
-    //   let newObject = { ...currentState };
-    //   return newObject;
-    // });
-
-    //step 3
-    // setInputsValue((currentState) => ({
-    //   ...currentState,
-    //   firstName: e.target.value,
-    // }));
-
-    //step 4
     setInputsValue((currentState) => ({
       ...currentState,
       [e.target.id]: e.target.value,
     }));
   };
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
@@ -81,10 +72,21 @@ const RegisterPage = () => {
           houseNumber: inputsValue.houseNumber,
           zip: +inputsValue.zip,
         },
-        isBusiness: false,
+        isBusiness: checked,
       };
       const { data } = await axios.post("/users", request);
       console.log("data", data);
+      toast.success("Welcome, Please log in", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      navigate(ROUTES.LOGIN);
     } catch (err) {
       console.log(err);
     }
@@ -144,7 +146,7 @@ const RegisterPage = () => {
               onChange={handleInputsChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <TextField
               required
               fullWidth
@@ -156,7 +158,7 @@ const RegisterPage = () => {
               onChange={handleInputsChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <TextField
               required
               fullWidth
@@ -169,7 +171,7 @@ const RegisterPage = () => {
               onChange={handleInputsChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <TextField
               required
               fullWidth
@@ -181,7 +183,7 @@ const RegisterPage = () => {
               onChange={handleInputsChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <TextField
               fullWidth
               name="url"
@@ -192,7 +194,7 @@ const RegisterPage = () => {
               onChange={handleInputsChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <TextField
               fullWidth
               name="alt"
@@ -203,7 +205,7 @@ const RegisterPage = () => {
               onChange={handleInputsChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <TextField
               fullWidth
               name="state"
@@ -214,7 +216,7 @@ const RegisterPage = () => {
               onChange={handleInputsChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <TextField
               required
               fullWidth
@@ -226,7 +228,7 @@ const RegisterPage = () => {
               onChange={handleInputsChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <TextField
               required
               fullWidth
@@ -238,7 +240,7 @@ const RegisterPage = () => {
               onChange={handleInputsChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <TextField
               required
               fullWidth
@@ -250,7 +252,7 @@ const RegisterPage = () => {
               onChange={handleInputsChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <TextField
               required
               fullWidth
@@ -262,7 +264,7 @@ const RegisterPage = () => {
               onChange={handleInputsChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <TextField
               fullWidth
               name="zip"
@@ -275,7 +277,14 @@ const RegisterPage = () => {
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox value="allowExtraEmails" color="primary" />}
+              control={
+                <Checkbox
+                  value="isBusiness"
+                  color="primary"
+                  checked={checked}
+                  onChange={handleChange}
+                />
+              }
               label="Business Account"
             />
           </Grid>
