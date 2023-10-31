@@ -14,10 +14,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import NavLinkComponent from "./NavLink";
-import nextKey from "generate-my-key";
-import Links from "../Links";
 import { Switch } from "@mui/material";
+import Links from "./ui/Links";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -174,13 +172,7 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
           >
             <Typography>RAVID DAVDA</Typography>
           </IconButton>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {Links.map((links) => (
-              <NavLinkComponent key={nextKey()} to={links.to}>
-                {links.children}
-              </NavLinkComponent>
-            ))}
-          </Box>
+          <Links />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

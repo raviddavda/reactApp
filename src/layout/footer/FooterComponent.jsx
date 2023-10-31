@@ -1,9 +1,9 @@
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import { useState } from "react";
-import Links from "../Links";
 import nextKey from "generate-my-key";
 import NavLinkComponent from "../header/NavLink";
+import myLinks from "../myLinks";
 
 const FooterComponent = () => {
   const [value, setValue] = useState(0);
@@ -26,7 +26,7 @@ const FooterComponent = () => {
           setValue(newValue);
         }}
       >
-        {Links.map((links) => (
+        {myLinks.map((links) => (
           <NavLinkComponent
             key={nextKey()}
             to={links.to}

@@ -8,6 +8,10 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
+import store from "./store/bigPie";
+import { Provider } from "react-redux";
+
+console.log(process.env);
 
 axios.defaults.baseURL = "https://monkfish-app-z9uza.ondigitalocean.app/bcard2";
 
@@ -22,8 +26,10 @@ axios.interceptors.request.use((config) => {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );

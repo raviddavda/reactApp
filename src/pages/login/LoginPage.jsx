@@ -9,6 +9,9 @@ import {
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
 import { toast } from "react-toastify";
 import ROUTES from "../../routes/ROUTES";
 
@@ -19,6 +22,7 @@ const LoginPage = () => {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleInputsChange = (e) => {
     setInputsValue((currentState) => ({
@@ -45,6 +49,7 @@ const LoginPage = () => {
         progress: undefined,
         theme: "light",
       });
+      dispatch(authActions.login(jwtDecode(data)));
       navigate(ROUTES.HOME);
       console.log("data from server", data);
     } catch (error) {

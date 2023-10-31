@@ -12,6 +12,8 @@ import RenderPage9 from "../playground/memoTest/RenderPage9";
 import CarPage from "../playground/memoTargil/CarPage";
 import CreateCardPage from "../pages/cardEdit/CreateCardPage";
 import EditCardPage from "../pages/cardEdit/EditCardPage";
+import CounterDisplay from "../playground/redux/CounterDisplay";
+import CounterComp from "../playground/redux/CounterComp";
 
 const Router = () => {
   return (
@@ -24,9 +26,12 @@ const Router = () => {
       <Route path={ROUTES.USERMANAGER} element={<UserManager />} />
       <Route path={ROUTES.USER1} element={<User1 />} />
       <Route path={ROUTES.USER2} element={<User2 />} />
-      <Route path="l9">
+      <Route path="/l9">
         <Route path="rendertest" element={<RenderPage9 />} />
         <Route path="memotargil" element={<CarPage />} />
+      </Route>
+      <Route path="/redux" element={<CounterDisplay />}>
+        <Route path="actions" element={<CounterComp />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
