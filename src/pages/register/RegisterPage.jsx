@@ -13,6 +13,8 @@ import axios from "axios";
 import ROUTES from "../../routes/ROUTES";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { validateRegister } from "../../validations/registerValidation";
+import { Alert } from "@mui/material";
 
 const RegisterPage = () => {
   const [inputsValue, setInputsValue] = useState({
@@ -34,6 +36,8 @@ const RegisterPage = () => {
 
   const [checked, setChecked] = useState(true);
 
+  const [errorsState, setErrorsState] = useState(null);
+
   const navigate = useNavigate();
 
   const handleInputsChange = (e) => {
@@ -50,7 +54,33 @@ const RegisterPage = () => {
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
-      // inputsValue.isBusiness = false;
+      const joiResponse = validateRegister({
+        name: {
+          first: inputsValue.first,
+          middle: inputsValue.middle,
+          last: inputsValue.last,
+        },
+        phone: inputsValue.phone,
+        email: inputsValue.email,
+        password: inputsValue.password,
+        image: {
+          url: inputsValue.url,
+          alt: inputsValue.alt,
+        },
+        address: {
+          state: inputsValue.state,
+          country: inputsValue.country,
+          city: inputsValue.city,
+          street: inputsValue.street,
+          houseNumber: inputsValue.houseNumber,
+          zip: +inputsValue.zip,
+        },
+      });
+
+      console.log("joiResponse", joiResponse);
+      setErrorsState(joiResponse);
+      if (joiResponse) return;
+
       let request = {
         name: {
           first: inputsValue.first,
@@ -121,6 +151,9 @@ const RegisterPage = () => {
               value={inputsValue.first}
               onChange={handleInputsChange}
             />
+            {errorsState && errorsState.first && (
+              <Alert severity="warning">{errorsState.first}</Alert>
+            )}
           </Grid>
           <Grid item xs={12} sm={4}>
             <TextField
@@ -145,6 +178,9 @@ const RegisterPage = () => {
               value={inputsValue.last}
               onChange={handleInputsChange}
             />
+            {errorsState && errorsState.last && (
+              <Alert severity="warning">{errorsState.last}</Alert>
+            )}
           </Grid>
           <Grid item xs={4}>
             <TextField
@@ -157,6 +193,9 @@ const RegisterPage = () => {
               value={inputsValue.email}
               onChange={handleInputsChange}
             />
+            {errorsState && errorsState.email && (
+              <Alert severity="warning">{errorsState.email}</Alert>
+            )}
           </Grid>
           <Grid item xs={4}>
             <TextField
@@ -170,6 +209,9 @@ const RegisterPage = () => {
               value={inputsValue.password}
               onChange={handleInputsChange}
             />
+            {errorsState && errorsState.password && (
+              <Alert severity="warning">{errorsState.password}</Alert>
+            )}
           </Grid>
           <Grid item xs={4}>
             <TextField
@@ -182,6 +224,9 @@ const RegisterPage = () => {
               value={inputsValue.phone}
               onChange={handleInputsChange}
             />
+            {errorsState && errorsState.phone && (
+              <Alert severity="warning">{errorsState.phone}</Alert>
+            )}
           </Grid>
           <Grid item xs={6}>
             <TextField
@@ -227,6 +272,9 @@ const RegisterPage = () => {
               value={inputsValue.country}
               onChange={handleInputsChange}
             />
+            {errorsState && errorsState.country && (
+              <Alert severity="warning">{errorsState.country}</Alert>
+            )}
           </Grid>
           <Grid item xs={4}>
             <TextField
@@ -239,6 +287,9 @@ const RegisterPage = () => {
               value={inputsValue.city}
               onChange={handleInputsChange}
             />
+            {errorsState && errorsState.city && (
+              <Alert severity="warning">{errorsState.city}</Alert>
+            )}
           </Grid>
           <Grid item xs={4}>
             <TextField
@@ -251,6 +302,9 @@ const RegisterPage = () => {
               value={inputsValue.street}
               onChange={handleInputsChange}
             />
+            {errorsState && errorsState.street && (
+              <Alert severity="warning">{errorsState.street}</Alert>
+            )}
           </Grid>
           <Grid item xs={4}>
             <TextField
@@ -263,6 +317,9 @@ const RegisterPage = () => {
               value={inputsValue.houseNumber}
               onChange={handleInputsChange}
             />
+            {errorsState && errorsState.houseNumber && (
+              <Alert severity="warning">{errorsState.houseNumber}</Alert>
+            )}
           </Grid>
           <Grid item xs={4}>
             <TextField

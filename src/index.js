@@ -11,8 +11,6 @@ import axios from "axios";
 import store from "./store/bigPie";
 import { Provider } from "react-redux";
 
-console.log(process.env);
-
 axios.defaults.baseURL = "https://monkfish-app-z9uza.ondigitalocean.app/bcard2";
 
 axios.interceptors.request.use((config) => {

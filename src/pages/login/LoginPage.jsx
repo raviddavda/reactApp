@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   Container,
@@ -14,12 +15,15 @@ import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 import { toast } from "react-toastify";
 import ROUTES from "../../routes/ROUTES";
+import { validateLogin } from "../../validations/loginValidation";
 
 const LoginPage = () => {
   const [inputsValue, setInputsValue] = useState({
     email: "",
     password: "",
   });
+
+  const [errorsState, setErrorsState] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,6 +38,15 @@ const LoginPage = () => {
   const handleBtnClick = async (event) => {
     try {
       event.preventDefault();
+      const joiResponse = validateLogin({
+        email: inputsValue.email,
+        password: inputsValue.password,
+      });
+
+      console.log("joiResponse", joiResponse);
+      setErrorsState(joiResponse);
+      if (joiResponse) return;
+
       const { data } = await axios.post("/users/login", {
         email: inputsValue.email,
         password: inputsValue.password,
@@ -88,6 +101,9 @@ const LoginPage = () => {
           value={inputsValue.email}
           onChange={handleInputsChange}
         />
+        {errorsState && errorsState.email && (
+          <Alert severity="warning">{errorsState.email}</Alert>
+        )}
         <TextField
           id="password"
           label="Password"
@@ -96,6 +112,9 @@ const LoginPage = () => {
           value={inputsValue.password}
           onChange={handleInputsChange}
         />
+        {errorsState && errorsState.password && (
+          <Alert severity="warning">{errorsState.password}</Alert>
+        )}
         <Button variant="contained" onClick={handleBtnClick}>
           Sign In
         </Button>
