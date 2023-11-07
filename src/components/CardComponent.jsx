@@ -23,9 +23,11 @@ const CardComponent = ({
   address,
   img,
   alt,
+  like,
   cardNumber,
   onDeleteCard,
   onEditCard,
+  onFavCard,
 }) => {
   const handlePhoneClick = () => {
     console.log("you clicked on phone btn");
@@ -37,6 +39,10 @@ const CardComponent = ({
   const handleClickEditCard = () => {
     // console.log("move to edit card page");
     onEditCard(_id);
+  };
+
+  const handleFavCard = () => {
+    onFavCard(_id);
   };
   return (
     <Card>
@@ -79,8 +85,8 @@ const CardComponent = ({
             <IconButton onClick={handleDeleteCardClick}>
               <DeleteIcon />
             </IconButton>
-            <IconButton>
-              <FavoriteIcon />
+            <IconButton onClick={handleFavCard}>
+              <FavoriteIcon color={like ? "#FFFFFF" : ""} />
             </IconButton>
           </Box>
         </Box>
@@ -97,6 +103,7 @@ CardComponent.propTypes = {
   address: PropTypes.string,
   img: PropTypes.string,
   alt: PropTypes.string,
+  like: PropTypes.bool,
   cardNumber: PropTypes.number,
   onDeleteCard: PropTypes.func.isRequired,
   onEditCard: PropTypes.func.isRequired,

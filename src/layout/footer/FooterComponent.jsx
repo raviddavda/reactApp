@@ -4,9 +4,11 @@ import { useState } from "react";
 import nextKey from "generate-my-key";
 import NavLinkComponent from "../header/NavLink";
 import myLinks from "../myLinks";
+import { useNavigate } from "react-router-dom";
 
 const FooterComponent = () => {
   const [value, setValue] = useState(0);
+  const navigate = useNavigate();
 
   return (
     <Box

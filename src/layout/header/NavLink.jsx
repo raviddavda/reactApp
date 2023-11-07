@@ -6,10 +6,7 @@ const NavLinkComponent = ({ to, children }) => {
   return (
     <NavLink to={to} style={{ textDecoration: "none" }}>
       {({ isActive }) => (
-        <Typography
-          color={isActive ? "warning.main" : "text.primary"}
-          sx={{ p: 2 }}
-        >
+        <Typography color={isActive ? "secondary" : "#FFF"} sx={{ p: 2 }}>
           {children}
         </Typography>
       )}

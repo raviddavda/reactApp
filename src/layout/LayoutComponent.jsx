@@ -5,16 +5,12 @@ import Main from "./main/Main";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import tmc from "twin-moon-color";
+import TabsComp from "./header/TabsComp";
 
 const LayoutComponent = ({ children }) => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-  const themes = tmc({
-    "text.headerColor": "#9d00ff",
-    "text.headerActive": "#9e165c",
-  });
-  // console.log("themes", themes);
-  // const themes = tmc({ primary: "#00FF00", elisheva: "#FF0000" });
+  const themes = tmc();
 
   const darkTheme = createTheme(themes.dark);
   const lightTheme = createTheme(themes.light);
@@ -30,6 +26,7 @@ const LayoutComponent = ({ children }) => {
         isDarkTheme={isDarkTheme}
         onThemeChange={handleThemeChange}
       />
+      {/* <TabsComp /> */}
       <Main>{children}</Main>
       <FooterComponent />
     </ThemeProvider>

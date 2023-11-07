@@ -2,14 +2,16 @@ import {
   Alert,
   Box,
   Button,
+  Checkbox,
   Container,
+  FormControlLabel,
   Link,
   TextField,
   Typography,
 } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import ROUTES from "../../routes/ROUTES";
@@ -115,12 +117,17 @@ const LoginPage = () => {
         {errorsState && errorsState.password && (
           <Alert severity="warning">{errorsState.password}</Alert>
         )}
+        <FormControlLabel
+          control={<Checkbox value="remember" color="primary" />}
+          label="Remember me"
+        />
         <Button variant="contained" onClick={handleBtnClick}>
           Sign In
         </Button>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Link href="#">Forgot Password?</Link>
-          <Link href="#">Don't have an account? Sign Up</Link>
+          <Link component={NavLink} to={ROUTES.REGISTER}>
+            Don't have an account? Sign Up
+          </Link>
         </Box>
       </Box>
     </Container>

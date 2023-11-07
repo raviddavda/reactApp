@@ -7,8 +7,7 @@ import {
   Divider,
   Button,
 } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
-import ROUTES from "../../routes/ROUTES";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const EditCardPage = () => {
@@ -201,27 +200,11 @@ const EditCardPage = () => {
         <Grid item lg={8} md={8} sm={8} xs>
           <Button
             variant="outlined"
-            sx={{ mt: 2, width: "100%", ml: "0%", bgcolor: "lightskyblue" }}
+            sx={{ mt: 2, bgcolor: "primary" }}
             onClick={handleUpdateChangesClick}
           >
             Update Changes
           </Button>
-        </Grid>
-        <Grid item xs>
-          <Link to={ROUTES.HOME}>
-            <Button
-              variant="outlined"
-              sx={{
-                mt: 2,
-                width: "100%",
-                ml: "0%",
-                bgcolor: "navy",
-                color: "gray",
-              }}
-            >
-              Discard Changes
-            </Button>
-          </Link>
         </Grid>
       </Grid>
     </Container>

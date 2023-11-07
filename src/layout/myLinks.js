@@ -6,11 +6,16 @@ const myLinks = [
   { to: ROUTES.REGISTER, children: "Register" },
 ];
 
-const alwaysLinks = [{ to: ROUTES.HOME, children: "Home" }];
-const loggedInLinks = [
-  { to: ROUTES.CARDCREATE, children: "Create New Card" },
-  { to: ROUTES.CARDEDIT, children: "Edit Card" },
+const alwaysLinks = [
+  { to: ROUTES.HOME, children: "Home" },
+  { to: ROUTES.ABOUT, children: "About" },
 ];
+
+const loggedInLinks = [
+  { to: ROUTES.MYCARDS, children: "My Cards" },
+  { to: ROUTES.FAVCARDS, children: "Favorite Cards" },
+];
+
 const notLoggedInLinks = [
   { to: ROUTES.LOGIN, children: "Login" },
   { to: ROUTES.REGISTER, children: "Register" },

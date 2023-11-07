@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const Links = () => {
   const loggedIn = useSelector((bigPie) => bigPie.authSlice.loggedIn);
   return (
-    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+    <Box sx={{ display: { xs: "none", md: "flex" } }}>
       {alwaysLinks.map((links) => (
         <NavLinkComponent key={nextKey()} to={links.to}>
           {links.children}
