@@ -38,7 +38,6 @@ const Router = () => {
         }
       />
       <Route path={ROUTES.USERMANAGER} element={<UserManager />} />
-      <Route path="/l8" element={<CarPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

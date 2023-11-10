@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import CardComponent from "../../components/CardComponent";
 import axios from "axios";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const MyCardsPage = () => {
   const [dataFromServer, setDataFromServer] = useState([]);
+  const [load, setLoad] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,7 +16,10 @@ const MyCardsPage = () => {
       .then(({ data }) => {
         setDataFromServer(data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => {
+        setLoad(true);
+      });
   }, []);
 
   const handleEditCard = (_id) => {
@@ -38,26 +42,30 @@ const MyCardsPage = () => {
       <Typography variant="h2" component="h2" color="primary" sx={{ mb: 2 }}>
         My Cards
       </Typography>
-      <Grid container spacing={2}>
-        {dataFromServer.length === 0 && (
-          <Typography>you have not created any cards</Typography>
-        )}
-        {dataFromServer.map((card) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={card._id}>
-            <CardComponent
-              _id={card._id}
-              title={card.title}
-              subtitle={card.subtitle}
-              address={`${card.address.city}, ${card.address.street} ${card.address.houseNumber}`}
-              img={card.image.url}
-              alt={card.image.alt}
-              cardNum={card.cardNumber}
-              onEditCard={handleEditCard}
-              onDeleteCard={handleDeleteCard}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      {load ? (
+        <Grid container spacing={2}>
+          {dataFromServer.length === 0 && (
+            <Typography>you have not created any cards</Typography>
+          )}
+          {dataFromServer.map((card) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={card._id}>
+              <CardComponent
+                _id={card._id}
+                title={card.title}
+                subtitle={card.subtitle}
+                address={`${card.address.city}, ${card.address.street} ${card.address.houseNumber}`}
+                img={card.image.url}
+                alt={card.image.alt}
+                cardNum={card.cardNumber}
+                onEditCard={handleEditCard}
+                onDeleteCard={handleDeleteCard}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <CircularProgress />
+      )}
     </Box>
   );
 };
