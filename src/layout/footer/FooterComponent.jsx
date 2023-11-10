@@ -4,21 +4,20 @@ import { useState } from "react";
 import nextKey from "generate-my-key";
 import NavLinkComponent from "../header/NavLink";
 import myLinks from "../myLinks";
-import { useNavigate } from "react-router-dom";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import InfoIcon from "@mui/icons-material/Info";
+import { NavLink } from "react-router-dom";
+import ROUTES from "../../routes/ROUTES";
 
 const FooterComponent = () => {
   const [value, setValue] = useState(0);
-  const navigate = useNavigate();
 
   return (
     <Box
       sx={{
         width: "100%",
         position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        borderTop: "1px solid #999",
+        bottom: "0",
       }}
     >
       <BottomNavigation
@@ -28,7 +27,7 @@ const FooterComponent = () => {
           setValue(newValue);
         }}
       >
-        {myLinks.map((links) => (
+        {/* {myLinks.map((links) => (
           <NavLinkComponent
             key={nextKey()}
             to={links.to}
@@ -36,7 +35,13 @@ const FooterComponent = () => {
           >
             {links.children}
           </NavLinkComponent>
-        ))}
+        ))} */}
+        <BottomNavigationAction
+          component={NavLink}
+          to={ROUTES.ABOUT}
+          label="About"
+          icon={<InfoIcon />}
+        />
       </BottomNavigation>
     </Box>
   );

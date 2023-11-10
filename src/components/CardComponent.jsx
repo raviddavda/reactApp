@@ -14,6 +14,8 @@ import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import ROUTES from "../routes/ROUTES";
 
 const CardComponent = ({
   _id,
@@ -46,7 +48,7 @@ const CardComponent = ({
   };
   return (
     <Card>
-      <CardActionArea>
+      <CardActionArea component={Link} to={`${ROUTES.CARDPAGE}/${_id}`}>
         <CardMedia component="img" image={img} alt={alt} />
       </CardActionArea>
       <CardContent>

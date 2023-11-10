@@ -6,6 +6,7 @@ const ROUTES = {
   REGISTER: "/register",
   LOGIN: "/login",
   CARDEDIT: "/editcard",
+  CARDPAGE: "/card",
   CARDCREATE: "/createcard",
   USERMANAGER: "/usermanager",
 };

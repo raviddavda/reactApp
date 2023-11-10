@@ -1,24 +1,25 @@
-import React, { Fragment, useState } from "react";
-import MemoCarComp from "./MemoCarComp";
-import { Button, TextField, Typography } from "@mui/material";
+import { Fragment, useState } from "react";
+import { Button, TextField } from "@mui/material";
+import CarChildComponent from "./CarChildComponent";
 
-const CarPage = () => {
-  const [addCar, setAddCar] = useState([
-    { name: "Tesle", km: 1000 },
-    { name: "porche", km: 2000 },
-    { name: "audi", km: 3000 },
-  ]);
-
+const CarTargilPage = () => {
+  const [cars, setCars] = useState(["car1", "car2", "car3"]);
+  const [txt, setTxt] = useState("");
+  const handleTxtChange = (e) => {
+    setTxt(e.target.value);
+  };
+  const handleBtnClick = () => {
+    setCars((carsState) => [...carsState, txt]);
+  };
   return (
     <Fragment>
-      <Typography>add new car</Typography>
-      <TextField label="name" size="small" />
-      <Button>add</Button>
-      {addCar.map((car, index) => (
-        <MemoCarComp key={index}>{car}</MemoCarComp>
+      <TextField value={txt} onChange={handleTxtChange} />
+      <Button onClick={handleBtnClick}>Add car</Button>
+      {cars.map((car, index) => (
+        <CarChildComponent key={index}>j{car}</CarChildComponent>
       ))}
     </Fragment>
   );
 };
 
-export default CarPage;
+export default CarTargilPage;

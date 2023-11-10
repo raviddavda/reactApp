@@ -1,6 +1,5 @@
 import { Button, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
-import nextKey from "generate-my-key";
 import CardComponent from "../../components/CardComponent";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -48,10 +47,6 @@ const HomePage = () => {
       .catch((error) => {
         console.log(error);
       });
-
-    // setDataFromServer((currentState) =>
-    //   currentState.filter((card) => card._id !== _id)
-    // );
   };
 
   const handleEditCard = (_id) => {
@@ -66,7 +61,7 @@ const HomePage = () => {
   const handleFavCard = async (_id) => {
     console.log(userData._id);
     await axios
-      .patch("/cards", userData._id)
+      .patch("/cards", userData)
       .then((response) => console.log(response))
       .catch((error) => {
         console.log(error);
@@ -76,7 +71,7 @@ const HomePage = () => {
   return (
     <Grid container spacing={2}>
       {dataFromServer.map((card) => (
-        <Grid item xs={12} sm={6} md={4} lg={3} key={nextKey()}>
+        <Grid item xs={12} sm={6} md={4} lg={3} key={card._id}>
           <CardComponent
             _id={card._id}
             title={card.title}

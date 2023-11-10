@@ -10,9 +10,11 @@ import CreateCardPage from "../pages/cardEdit/CreateCardPage";
 import EditCardPage from "../pages/cardEdit/EditCardPage";
 import AuthGuard from "../Guard/AuthGuard";
 import AuthGuardBiz from "../Guard/AuthGuardBiz";
-import FavCardsComp from "../pages/favCards/FavCardsComp";
 import AboutPage from "../pages/about/AboutPage";
 import MyCardsPage from "../pages/myCards/MyCardsPage";
+import CardPage from "../pages/cardPage/CardPage";
+import FavCardsPage from "../pages/favCards/FavCardsPage";
+import CarPage from "../playground/memoTargil/CarPage";
 
 const Router = () => {
   return (
@@ -22,7 +24,8 @@ const Router = () => {
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={`${ROUTES.CARDEDIT}/:id`} element={<EditCardPage />} />
-      <Route path={ROUTES.FAVCARDS} element={<FavCardsComp />} />
+      <Route path={`${ROUTES.CARDPAGE}/:id`} element={<CardPage />} />
+      <Route path={ROUTES.FAVCARDS} element={<FavCardsPage />} />
       <Route path={ROUTES.MYCARDS} element={<MyCardsPage />} />
       <Route
         path={ROUTES.CARDCREATE}
@@ -35,6 +38,7 @@ const Router = () => {
         }
       />
       <Route path={ROUTES.USERMANAGER} element={<UserManager />} />
+      <Route path="/l8" element={<CarPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

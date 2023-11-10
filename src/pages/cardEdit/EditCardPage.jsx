@@ -4,8 +4,8 @@ import {
   TextField,
   Grid,
   Typography,
-  Divider,
   Button,
+  Box,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -63,142 +63,180 @@ const EditCardPage = () => {
     }
   };
   return (
-    <Container sx={{ padding: "50px" }}>
-      <Typography variant="h2" sx={{ mb: 1, padding: "10px", pb: "0px" }}>
-        Card - Edit
-      </Typography>
-      <Typography variant="body1" sx={{ mb: 1, padding: "3px", ml: "7px" }}>
-        Put a new values in the correct input
-      </Typography>
-      <Divider sx={{ mb: 3 }} />
-      <Grid container flexDirection={"column"}>
-        <TextField
-          id="title"
-          label="Title"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.title}
-          required
-        />
-        <TextField
-          id="subtitle"
-          label="SubTitle"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.subtitle}
-          required
-        />
-        <TextField
-          id="phone"
-          label="Phone Number"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.phone}
-          required
-        />
-        <TextField
-          id="description"
-          label="Description"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.description}
-          required
-        />
-        <TextField
-          id="web"
-          label="Web"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.web}
-        />
-        <TextField
-          id="mail"
-          label="Email"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.mail}
-          required
-        />
-
-        <TextField
-          id="url"
-          label="Url"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.url}
-        />
-        <TextField
-          id="alt"
-          label="Alt"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.alt}
-        />
-
-        <TextField
-          id="state"
-          label="State"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.state}
-        />
-        <TextField
-          id="country"
-          label="Country"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.country}
-          required
-        />
-        <TextField
-          id="city"
-          label="City"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.city}
-          required
-        />
-        <TextField
-          id="street"
-          label="Street"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.street}
-          required
-        />
-        <TextField
-          id="houseNumber"
-          label="House Number"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.houseNumber}
-          required
-        />
-        <TextField
-          id="zip"
-          label="Zip"
-          variant="outlined"
-          sx={{ mt: "10px" }}
-          onChange={handleInputChange}
-          value={inputsValue.zip}
-        />
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item lg={8} md={8} sm={8} xs>
+    <Container
+      sx={{
+        height: "50rem",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Box
+        sx={{
+          width: "70%",
+          display: "flex",
+          flexDirection: "column",
+          padding: "3%",
+          borderRadius: "10px",
+          boxShadow: "0 0 15px 5px rgba(211, 211, 211, .7)",
+        }}
+      >
+        <Typography component="h2" variant="h2" color="primary">
+          Edit Card
+        </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              id="title"
+              label="Title"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.title}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              id="subtitle"
+              label="SubTitle"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.subtitle}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              id="phone"
+              label="Phone Number"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.phone}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              id="description"
+              label="Description"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.description}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              id="web"
+              label="Web"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.web}
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              id="mail"
+              label="Email"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.mail}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              id="url"
+              label="Url"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.url}
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              id="alt"
+              label="Alt"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.alt}
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              id="state"
+              label="State"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.state}
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              id="country"
+              label="Country"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.country}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              id="city"
+              label="City"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.city}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              id="street"
+              label="Street"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.street}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              id="houseNumber"
+              label="House Number"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.houseNumber}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              id="zip"
+              label="Zip"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={inputsValue.zip}
+            />
+          </Grid>
           <Button
+            fullWidth
             variant="outlined"
             sx={{ mt: 2, bgcolor: "primary" }}
             onClick={handleUpdateChangesClick}
@@ -206,7 +244,7 @@ const EditCardPage = () => {
             Update Changes
           </Button>
         </Grid>
-      </Grid>
+      </Box>
     </Container>
   );
 };
