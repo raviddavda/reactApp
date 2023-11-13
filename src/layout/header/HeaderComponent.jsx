@@ -14,10 +14,13 @@ import Links from "./ui/Links";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import SearchComp from "./ui/SearchComp";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../routes/ROUTES";
 
 const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const navigate = useNavigate();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -39,6 +42,12 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
     handleMenuClose();
     localStorage.clear();
     sessionStorage.clear();
+    navigate(ROUTES.LOGIN);
+  };
+
+  const handleProfileBtn = () => {
+    handleMenuClose();
+    navigate(ROUTES.PROFILE);
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -66,7 +75,7 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleProfileBtn}>Profile</MenuItem>
       <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
     </Menu>
   );

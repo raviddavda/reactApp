@@ -1,4 +1,4 @@
-import { Button, Grid } from "@mui/material";
+import { Divider, Grid, Pagination, Typography } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
 import CardComponent from "../../components/CardComponent";
 import { useNavigate } from "react-router-dom";
@@ -7,18 +7,17 @@ import ROUTES from "../../routes/ROUTES";
 import useQueryParams from "../../hooks/useQueryParams";
 import { useSelector } from "react-redux";
 import homePageNormalization from "./HomePageNormalize";
-import ReactPaginate from "react-paginate";
 
 let initDataFromServer = [];
 
 const HomePage = () => {
   const [dataFromServer, setDataFromServer] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
   const userData = useSelector((bigPie) => bigPie.authSlice.userData);
   const query = useQueryParams();
-  const itemsPerPage = 7;
+  const itemsPerPage = 3;
 
   useEffect(() => {
     axios
@@ -33,14 +32,14 @@ const HomePage = () => {
       .catch((error) => {
         console.log("error:", error);
       });
-  }, [userData]);
+  }, []);
 
-  const startIndex = currentPage * itemsPerPage;
+  const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const subset = dataFromServer.slice(startIndex, endIndex);
 
-  const handlePageChange = (selectedPage) => {
-    setCurrentPage(selectedPage.selected);
+  const handlePageChange = (event, selectedPage) => {
+    setCurrentPage(selectedPage);
   };
 
   useEffect(() => {
@@ -54,7 +53,7 @@ const HomePage = () => {
   const handleDeleteCard = async (_id) => {
     console.log("to del", _id);
     await axios
-      .delete("/cards", _id)
+      .delete(`/cards/${_id}`)
       .then((response) => console.log(response))
       .catch((error) => {
         console.log(error);
@@ -66,15 +65,10 @@ const HomePage = () => {
     navigate(`${ROUTES.CARDEDIT}/${_id}`);
   };
 
-  const handleCreateCard = () => {
-    navigate(ROUTES.CARDCREATE);
-  };
-
   const handleFavCard = async (_id) => {
-    console.log(userData);
     await axios
-      .patch("/cards", userData)
-      .then((response) => console.log(response))
+      .patch(`/cards/${_id}`)
+      .then((response) => {})
       .catch((error) => {
         console.log(error);
       });
@@ -82,7 +76,23 @@ const HomePage = () => {
 
   return (
     <Fragment>
-      <Grid container spacing={2}>
+      <Typography color="primary" variant="h2" component="h2">
+        Welcome to BCard!
+      </Typography>
+      <Typography variant="h5" component="h5">
+        Brows, like, and create cards to advertise you business and much more!
+      </Typography>
+      <Divider sx={{ m: 2 }} />
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          mb: 10,
+        }}
+      >
         {subset.map((card) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={card._id}>
             <CardComponent
@@ -101,21 +111,24 @@ const HomePage = () => {
             />
           </Grid>
         ))}
-        <Button onClick={handleCreateCard}>Add New Card</Button>
       </Grid>
-      <ReactPaginate
-        nextLabel=">>"
-        breakLabel="..."
-        onPageChange={handlePageChange}
-        pageRangeDisplayed={3}
-        pageCount={totalPages}
-        previousLabel="<<"
-        renderOnZeroPageCount={null}
-        containerClassName="pagination"
-        pageLinkClassName="page-num"
-        previousLinkClassName="page-num"
-        nextLinkClassName="page-num"
-        activeLinkClassName="active"
+      <Pagination
+        sx={{
+          position: "relative",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          mb: 10,
+        }}
+        size="large"
+        color="primary"
+        shape="rounded"
+        variant="outlined"
+        siblingCount={1}
+        count={totalPages}
+        page={currentPage}
+        onChange={handlePageChange}
       />
     </Fragment>
   );

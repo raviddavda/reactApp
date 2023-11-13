@@ -1,15 +1,9 @@
 import { useState } from "react";
-import {
-  Container,
-  TextField,
-  Grid,
-  Typography,
-  Divider,
-  Button,
-} from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { TextField, Grid, Typography, Button, Divider } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
 import axios from "axios";
+import ContainerComp from "../../components/ContainerComp";
 
 const CreateCardPage = () => {
   const [inputsValue, setInputValue] = useState({
@@ -66,17 +60,19 @@ const CreateCardPage = () => {
     }
   };
   return (
-    <Container sx={{ padding: "50px" }}>
-      <Typography variant="h2" sx={{ mb: 1, padding: "10px", pb: "0px" }}>
+    <ContainerComp>
+      <Typography variant="h2" component="h2" color="primary">
         Create New Card
       </Typography>
-      <Divider sx={{ mb: 3 }} />
+      <Typography variant="h5" component="h5">
+        Here you can create new cards, and they will be added to the Home page.
+      </Typography>
+      <Divider sx={{ m: 2 }} />
       <Grid container flexDirection={"column"}>
         <TextField
           id="title"
           label="Title"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.title}
           required
@@ -85,7 +81,6 @@ const CreateCardPage = () => {
           id="subtitle"
           label="SubTitle"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.subtitle}
           required
@@ -94,7 +89,6 @@ const CreateCardPage = () => {
           id="description"
           label="Description"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.description}
           required
@@ -103,7 +97,6 @@ const CreateCardPage = () => {
           id="phone"
           label="Phone Number"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.phone}
           required
@@ -112,7 +105,6 @@ const CreateCardPage = () => {
           id="mail"
           label="Email"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.mail}
           required
@@ -121,7 +113,6 @@ const CreateCardPage = () => {
           id="web"
           label="Web"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.web}
         />
@@ -129,7 +120,6 @@ const CreateCardPage = () => {
           id="url"
           label="Url"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.url}
         />
@@ -137,7 +127,6 @@ const CreateCardPage = () => {
           id="alt"
           label="Alt"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.alt}
         />
@@ -146,7 +135,6 @@ const CreateCardPage = () => {
           id="state"
           label="State"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.state}
         />
@@ -154,7 +142,6 @@ const CreateCardPage = () => {
           id="country"
           label="Country"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.country}
           required
@@ -163,7 +150,6 @@ const CreateCardPage = () => {
           id="city"
           label="City"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.city}
           required
@@ -172,7 +158,6 @@ const CreateCardPage = () => {
           id="street"
           label="Street"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.street}
           required
@@ -181,7 +166,6 @@ const CreateCardPage = () => {
           id="houseNumber"
           label="House Number"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.houseNumber}
           required
@@ -190,7 +174,6 @@ const CreateCardPage = () => {
           id="zip"
           label="Zip"
           variant="outlined"
-          sx={{ mt: "10px" }}
           onChange={handleInputChange}
           value={inputsValue.zip}
         />
@@ -198,15 +181,17 @@ const CreateCardPage = () => {
       <Grid container spacing={2}>
         <Grid item lg={8} md={8} sm={8} xs>
           <Button
+            fullWidth
+            color="primary"
             variant="outlined"
-            sx={{ mt: 2, bgcolor: "primary" }}
+            sx={{ mt: 2 }}
             onClick={handleUpdateChangesClick}
           >
             Create New Card
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </ContainerComp>
   );
 };
 export default CreateCardPage;

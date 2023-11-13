@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Checkbox,
-  Container,
   FormControlLabel,
   Link,
   TextField,
@@ -12,11 +11,12 @@ import {
 import axios from "axios";
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import ROUTES from "../../routes/ROUTES";
 import { validateLogin } from "../../validations/loginValidation";
 import useAutoLogin from "../../hooks/useAutoLogin";
+import ContainerComp from "../../components/ContainerComp";
 
 const LoginPage = () => {
   const [inputsValue, setInputsValue] = useState({
@@ -27,7 +27,7 @@ const LoginPage = () => {
   const [errorsState, setErrorsState] = useState(null);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const autoLogin = useAutoLogin();
 
   const handleInputsChange = (e) => {
@@ -68,69 +68,58 @@ const LoginPage = () => {
       navigate(ROUTES.HOME);
       console.log("data from server", data);
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
   return (
-    <Container
-      sx={{
-        height: "50rem",
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Box
-        sx={{
-          width: "40%",
-          display: "flex",
-          flexDirection: "column",
-          gap: "30px",
-          padding: "3%",
-          borderRadius: "10px",
-          boxShadow: "0 0 15px 5px rgba(211, 211, 211, .7)",
-        }}
-      >
-        <Typography component="h2" variant="h2" color="primary">
-          Sign In
-        </Typography>
-        <TextField
-          id="email"
-          label="Email"
-          variant="outlined"
-          value={inputsValue.email}
-          onChange={handleInputsChange}
-        />
-        {errorsState && errorsState.email && (
-          <Alert severity="warning">{errorsState.email}</Alert>
-        )}
-        <TextField
-          id="password"
-          label="Password"
-          variant="outlined"
-          type="password"
-          value={inputsValue.password}
-          onChange={handleInputsChange}
-        />
-        {errorsState && errorsState.password && (
-          <Alert severity="warning">{errorsState.password}</Alert>
-        )}
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
-        />
-        <Button variant="contained" onClick={handleBtnClick}>
-          Sign In
-        </Button>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Link component={NavLink} to={ROUTES.REGISTER}>
-            Don't have an account? Sign Up
-          </Link>
-        </Box>
+    <ContainerComp>
+      <Typography component="h2" variant="h2" color="primary">
+        Sign In
+      </Typography>
+      <TextField
+        id="email"
+        label="Email"
+        variant="outlined"
+        value={inputsValue.email}
+        onChange={handleInputsChange}
+      />
+      {errorsState && errorsState.email && (
+        <Alert severity="warning">{errorsState.email}</Alert>
+      )}
+      <TextField
+        id="password"
+        label="Password"
+        variant="outlined"
+        type="password"
+        value={inputsValue.password}
+        onChange={handleInputsChange}
+      />
+      {errorsState && errorsState.password && (
+        <Alert severity="warning">{errorsState.password}</Alert>
+      )}
+      <FormControlLabel
+        control={<Checkbox value="remember" color="primary" />}
+        label="Remember me"
+      />
+      <Button variant="contained" onClick={handleBtnClick}>
+        Sign In
+      </Button>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Link component={NavLink} to={ROUTES.REGISTER}>
+          Don't have an account? Sign Up
+        </Link>
       </Box>
-    </Container>
+    </ContainerComp>
   );
 };
 

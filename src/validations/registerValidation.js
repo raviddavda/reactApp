@@ -2,12 +2,20 @@ import Joi from "joi";
 import validation from "./validation";
 
 const registerSchema = Joi.object({
-  first: Joi.string().min(2).max(256).required(),
-  middle: Joi.string().min(2).max(256).allow(""),
-  last: Joi.string().min(2).max(256).required(),
-  phone: Joi.number().required(),
+  name: Joi.object().keys({
+    first: Joi.string().min(2).max(256).required(),
+    middle: Joi.string().min(2).max(256).allow(""),
+    last: Joi.string().min(2).max(256).required(),
+  }),
+  phone: Joi.string()
+    .min(9)
+    .max(11)
+    // eslint-disable-next-line
+    .pattern(/^[\+]?[(]?[0-9]{3,4}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/)
+    .required(),
   email: Joi.string()
     .email({ tlds: { allow: false } })
+    .min(5)
     .required(),
   password: Joi.string()
     .pattern(
@@ -16,21 +24,26 @@ const registerSchema = Joi.object({
       )
     )
     .messages({
-      "string.pattern.base": "the password should be...",
-      "string.empty":
-        "password must be filled with something that you will forget",
+      "string.pattern.base":
+        "must be at least nine characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&*-",
+      "string.empty": "This field is Required",
     })
-    .min(2)
+    .min(7)
     .max(20)
     .required(),
-  url: Joi.string().allow(""),
-  alt: Joi.string().allow(""),
-  state: Joi.string().allow(""),
-  country: Joi.string().required(),
-  city: Joi.string().required(),
-  street: Joi.string().required(),
-  houseNumber: Joi.number().required(),
-  zip: Joi.number().allow(""),
+  image: Joi.object().keys({
+    url: Joi.string().min(14).allow(""),
+    alt: Joi.string().min(2).max(256).allow(""),
+  }),
+  address: Joi.object().keys({
+    state: Joi.string().min(2).max(256).allow(""),
+    country: Joi.string().min(2).max(256).required(),
+    city: Joi.string().min(2).max(256).required(),
+    street: Joi.string().min(2).max(256).required(),
+    houseNumber: Joi.number().min(2).max(256).required(),
+    zip: Joi.number().min(2).max(256).allow(""),
+  }),
+  isBusiness: Joi.boolean(),
 });
 
 const validateRegister = (inputToCheck) =>

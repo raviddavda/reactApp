@@ -1,7 +1,57 @@
-import React from "react";
+import { Divider, Grid, Typography } from "@mui/material";
+import axios from "axios";
+import React, { Fragment, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import homePageNormalization from "../home/HomePageNormalize";
+import CardComponent from "../../components/CardComponent";
 
 const FavCardsPage = () => {
-  return <div>FavCardsPage</div>;
+  const [cards, setCards] = useState([]);
+  const userData = useSelector((bigPie) => bigPie.authSlice.userData);
+
+  useEffect(() => {
+    axios
+      .get("/cards")
+      .then(({ data }) => {
+        console.log(data);
+        homePageNormalization(data, userData._id);
+        setCards(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  return (
+    <Fragment>
+      <Typography variant="h2" component="h2" color="primary">
+        Favourite Cards
+      </Typography>
+      <Typography variant="h5" component="h5">
+        Here will be displayed all the cards you liked.
+      </Typography>
+      <Divider sx={{ m: 2 }} />
+      <Grid container spacing={2}>
+        {cards
+          .filter((card) => card.likes)
+          .map((card) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={card._id}>
+              <CardComponent
+                _id={card._id}
+                title={card.title}
+                subtitle={card.subtitle}
+                phone={card.phone}
+                address={`${card.address.city}, ${card.address.street} ${card.address.houseNumber}`}
+                img={card.image.url}
+                alt={card.image.alt}
+                like={card.likes}
+                cardNum={card.cardNumber}
+              />
+            </Grid>
+          ))}
+      </Grid>
+    </Fragment>
+  );
 };
 
 export default FavCardsPage;

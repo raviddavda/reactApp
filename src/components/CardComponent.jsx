@@ -88,7 +88,7 @@ const CardComponent = ({
               <DeleteIcon />
             </IconButton>
             <IconButton onClick={handleFavCard}>
-              <FavoriteIcon color={like ? "#FFFFFF" : ""} />
+              <FavoriteIcon color={like ? "warning" : ""} />
             </IconButton>
           </Box>
         </Box>
@@ -105,7 +105,7 @@ CardComponent.propTypes = {
   address: PropTypes.string,
   img: PropTypes.string,
   alt: PropTypes.string,
-  like: PropTypes.bool,
+  like: PropTypes.any,
   cardNumber: PropTypes.number,
   onDeleteCard: PropTypes.func.isRequired,
   onEditCard: PropTypes.func.isRequired,

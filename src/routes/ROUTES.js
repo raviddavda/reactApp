@@ -9,6 +9,7 @@ const ROUTES = {
   CARDPAGE: "/card",
   CARDCREATE: "/createcard",
   USERMANAGER: "/usermanager",
+  PROFILE: "/profile",
 };
 
 export default ROUTES;

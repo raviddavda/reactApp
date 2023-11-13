@@ -1,14 +1,16 @@
+import React from "react";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import ROUTES from "../routes/ROUTES";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
 
-const AuthGuardBiz = ({ children }) => {
-  const userData = useSelector((bigPie) => bigPie.authSlice.userData);
-  if (userData && userData.isBusiness) {
+const AdminGuard = ({ children }) => {
+  const userData = useSelector((bigPie) => bigPie.authSlice.loggedIn);
+
+  if (userData && userData.isAdmin) {
     return children;
   } else {
-    toast.error("Only a Business Account can do that!", {
+    toast.error("Accesable only by Admin Account", {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -22,4 +24,4 @@ const AuthGuardBiz = ({ children }) => {
   }
 };
 
-export default AuthGuardBiz;
+export default AdminGuard;

@@ -1,20 +1,32 @@
-import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import LayoutComponent from "./layout/LayoutComponent";
+import { ToastContainer } from "react-toastify";
 import Router from "./routes/Router";
-import "react-toastify/dist/ReactToastify.css";
-import useAutoLogin from "./hooks/useAutoLogin1";
-import { useEffect } from "react";
+import useAutoLogin from "./hooks/useAutoLogin";
+import { useEffect, useState } from "react";
+import { LinearProgress } from "@mui/material";
 
 const App = () => {
+  const [doneAuth, setDoneAuth] = useState(false);
   const autoLogin = useAutoLogin();
   useEffect(() => {
-    autoLogin();
+    (async () => {
+      try {
+        await autoLogin(); //false is default
+      } catch (err) {
+        console.log(err);
+      } finally {
+        //this block of code will executed when the promise done
+        //no matter if its done or got error
+        setDoneAuth(true);
+      }
+    })();
   }, []);
   return (
     <LayoutComponent>
       <ToastContainer />
-      <Router />
+      {doneAuth ? <Router /> : <LinearProgress />}
     </LayoutComponent>
   );
 };

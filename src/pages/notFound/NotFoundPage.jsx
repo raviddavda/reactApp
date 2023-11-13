@@ -1,40 +1,23 @@
-import { Box, Button, Container, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import { Box, Divider, Typography } from "@mui/material";
+import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
 
 const NotFoundPage = () => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-      }}
-    >
-      <Container maxWidth="md">
-        <Grid container spacing={2}>
-          <Grid xs={6}>
-            <Typography variant="h1">404</Typography>
-            <Typography variant="h6">
-              The page you’re looking for doesn’t exist.
-            </Typography>
-            <Button variant="contained">
-              <Link to={ROUTES.HOME}>Home</Link>
-            </Button>
-          </Grid>
-          <Grid xs={6}>
-            <img
-              src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569__340.jpg"
-              alt=""
-              width={500}
-              height={250}
-            />
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+    <Fragment>
+      <Typography color="primary" variant="h2" component="h2">
+        404 PAGE NOT FOUND
+      </Typography>
+      <Typography variant="h5" component="h5">
+        Oops... the page you were looking for does not exist.
+      </Typography>
+      <Divider sx={{ m: 2 }} />
+      <Box>
+        <Link to={ROUTES.HOME}>Click here to go back to Home Page.</Link>
+      </Box>
+    </Fragment>
   );
 };
+
 export default NotFoundPage;

@@ -14,7 +14,8 @@ import AboutPage from "../pages/about/AboutPage";
 import MyCardsPage from "../pages/myCards/MyCardsPage";
 import CardPage from "../pages/cardPage/CardPage";
 import FavCardsPage from "../pages/favCards/FavCardsPage";
-import CarPage from "../playground/memoTargil/CarPage";
+import ProfilePage from "../pages/profile/ProfilePage";
+import AdminGuard from "../Guard/AdminGuard";
 
 const Router = () => {
   return (
@@ -23,10 +24,35 @@ const Router = () => {
       <Route path={ROUTES.ABOUT} element={<AboutPage />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-      <Route path={`${ROUTES.CARDEDIT}/:id`} element={<EditCardPage />} />
+      <Route
+        path={`${ROUTES.CARDEDIT}/:id`}
+        element={
+          <AuthGuard>
+            <AuthGuardBiz>
+              <EditCardPage />
+            </AuthGuardBiz>
+          </AuthGuard>
+        }
+      />
       <Route path={`${ROUTES.CARDPAGE}/:id`} element={<CardPage />} />
-      <Route path={ROUTES.FAVCARDS} element={<FavCardsPage />} />
-      <Route path={ROUTES.MYCARDS} element={<MyCardsPage />} />
+      <Route
+        path={ROUTES.FAVCARDS}
+        element={
+          <AuthGuard>
+            <FavCardsPage />
+          </AuthGuard>
+        }
+      />
+      <Route
+        path={ROUTES.MYCARDS}
+        element={
+          <AuthGuard>
+            <AuthGuardBiz>
+              <MyCardsPage />
+            </AuthGuardBiz>
+          </AuthGuard>
+        }
+      />
       <Route
         path={ROUTES.CARDCREATE}
         element={
@@ -37,7 +63,24 @@ const Router = () => {
           </AuthGuard>
         }
       />
-      <Route path={ROUTES.USERMANAGER} element={<UserManager />} />
+      <Route
+        path={ROUTES.PROFILE}
+        element={
+          <AuthGuard>
+            <ProfilePage />
+          </AuthGuard>
+        }
+      />
+      <Route
+        path={ROUTES.USERMANAGER}
+        element={
+          <AuthGuard>
+            <AdminGuard>
+              <UserManager />
+            </AdminGuard>
+          </AuthGuard>
+        }
+      />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
