@@ -17,9 +17,11 @@ import { useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
+import LeftDrawerComponent from "./ui/LeftDrawerComponent";
 
 const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -50,6 +52,13 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
     onThemeChange(event.target.checked);
   };
 
+  const handleOpenDrawerClick = () => {
+    setIsOpen(true);
+  };
+  const handleCloseDrawerClick = () => {
+    setIsOpen(false);
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -77,13 +86,19 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
       <AppBar position="fixed">
         <Toolbar sx={{ alignItems: "center" }}>
           <IconButton
+            sx={{ display: { xs: "block", md: "none" } }}
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
+            onClick={handleOpenDrawerClick}
           >
             <MenuIcon />
           </IconButton>
+          <LeftDrawerComponent
+            isOpen={isOpen}
+            onCloseDrawer={handleCloseDrawerClick}
+          />
           <Typography
             variant="h6"
             noWrap

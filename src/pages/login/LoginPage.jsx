@@ -9,25 +9,27 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import React, { useState } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import ROUTES from "../../routes/ROUTES";
 import { validateLogin } from "../../validations/loginValidation";
 import useAutoLogin from "../../hooks/useAutoLogin";
 import ContainerComp from "../../components/ContainerComp";
+import { storeToken } from "../../service/storageService";
 
 const LoginPage = () => {
   const [inputsValue, setInputsValue] = useState({
     email: "",
     password: "",
   });
-
+  const [rememberMe, setRememberMe] = useState(true);
   const [errorsState, setErrorsState] = useState(null);
 
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const autoLogin = useAutoLogin();
 
   const handleInputsChange = (e) => {
@@ -37,9 +39,12 @@ const LoginPage = () => {
     }));
   };
 
+  const handleRememberMeChange = () => {
+    setRememberMe(!rememberMe);
+  };
+
   const handleBtnClick = async (event) => {
     try {
-      event.preventDefault();
       const joiResponse = validateLogin({
         email: inputsValue.email,
         password: inputsValue.password,
@@ -53,7 +58,7 @@ const LoginPage = () => {
         email: inputsValue.email,
         password: inputsValue.password,
       });
-      localStorage.setItem("token", data);
+      storeToken(data, rememberMe);
       toast.success("Logged in", {
         position: "top-center",
         autoClose: 5000,
@@ -83,6 +88,7 @@ const LoginPage = () => {
 
   return (
     <ContainerComp>
+      <CssBaseline />
       <Typography component="h2" variant="h2" color="primary">
         Sign In
       </Typography>
@@ -108,7 +114,14 @@ const LoginPage = () => {
         <Alert severity="warning">{errorsState.password}</Alert>
       )}
       <FormControlLabel
-        control={<Checkbox value="remember" color="primary" />}
+        control={
+          <Checkbox
+            value="remember"
+            color="primary"
+            checked={rememberMe}
+            onChange={handleRememberMeChange}
+          />
+        }
         label="Remember me"
       />
       <Button variant="contained" onClick={handleBtnClick}>

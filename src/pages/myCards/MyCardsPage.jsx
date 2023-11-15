@@ -55,7 +55,9 @@ const MyCardsPage = () => {
       {load ? (
         <Grid container spacing={2}>
           {dataFromServer.length === 0 && (
-            <Typography>You have not created any cards.</Typography>
+            <Typography pl={2} variant="h5">
+              You have not created any cards.
+            </Typography>
           )}
           {dataFromServer.map((card) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={card._id}>
