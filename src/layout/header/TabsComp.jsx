@@ -23,7 +23,7 @@ const TabsComp = () => {
         value={value}
         onChange={handleChange}
         variant="scrollable"
-        // scrollButtons="auto"
+        scrollButtons="auto"
         aria-label="scrollable auto tabs example"
       >
         <Tab label="Home" component={NavLink} to={ROUTES.HOME} />

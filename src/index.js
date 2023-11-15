@@ -11,7 +11,7 @@ import axios from "axios";
 import store from "./store/bigPie";
 import { Provider } from "react-redux";
 
-axios.defaults.baseURL = "https://monkfish-app-z9uza.ondigitalocean.app/bcard2";
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
 
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");

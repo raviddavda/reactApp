@@ -1,14 +1,16 @@
-import React, { useState } from "react";
 import HeaderComponent from "./header/HeaderComponent";
 import FooterComponent from "./footer/FooterComponent";
 import Main from "./main/Main";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import tmc from "twin-moon-color";
+import { darkThemeActions } from "../store/theme";
 import TabsComp from "./header/TabsComp";
+import { useDispatch, useSelector } from "react-redux";
 
 const LayoutComponent = ({ children }) => {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const isDarkTheme = useSelector((bigPie) => bigPie.themeSlice.darkTheme);
+  const dispatch = useDispatch();
 
   const themes = tmc();
 
@@ -16,7 +18,7 @@ const LayoutComponent = ({ children }) => {
   const lightTheme = createTheme(themes.light);
 
   const handleThemeChange = (checked) => {
-    setIsDarkTheme(checked);
+    dispatch(darkThemeActions.changeTheme());
   };
 
   return (

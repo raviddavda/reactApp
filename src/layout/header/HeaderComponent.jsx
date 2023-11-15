@@ -8,7 +8,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import { Switch } from "@mui/material";
 import Links from "./ui/Links";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -16,42 +15,35 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import SearchComp from "./ui/SearchComp";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
 
 const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
   };
 
   const handleLogOut = () => {
     handleMenuClose();
     localStorage.clear();
     sessionStorage.clear();
+    dispatch(authActions.logout());
     navigate(ROUTES.LOGIN);
   };
 
   const handleProfileBtn = () => {
     handleMenuClose();
     navigate(ROUTES.PROFILE);
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const handleThemeChange = (event) => {
@@ -80,38 +72,6 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
     </Menu>
   );
 
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
-
   return (
     <Box sx={{ flexGrow: 1, mb: 10 }}>
       <AppBar position="fixed">
@@ -128,17 +88,20 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
             variant="h6"
             noWrap
             component="div"
+            to={ROUTES.HOME}
             sx={{ display: { xs: "none", sm: "block" } }}
           >
             BCard
           </Typography>
-          <Links />
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Links />
+          </Box>
           <SearchComp />
+          <Box sx={{ flexGrow: 1 }} />
           <LightModeIcon color="secondary" />
           <Switch checked={isDarkTheme} onChange={handleThemeChange} />
           <DarkModeIcon color="secondary" />
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ display: "flex" }}>
             <IconButton
               size="large"
               edge="end"
@@ -151,21 +114,8 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
               <AccountCircle />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
       {renderMenu}
     </Box>
   );

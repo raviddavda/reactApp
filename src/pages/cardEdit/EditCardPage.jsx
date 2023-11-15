@@ -5,6 +5,7 @@ import axios from "axios";
 import ContainerComp from "../../components/ContainerComp";
 import ROUTES from "../../routes/ROUTES";
 import { toast } from "react-toastify";
+import { normalizeCardData } from "./normalizeCardData";
 
 const EditCardPage = () => {
   const [inputsValue, setInputValue] = useState({
@@ -35,26 +36,8 @@ const EditCardPage = () => {
   };
   const handleUpdateChangesClick = async () => {
     try {
-      const { data } = await axios.put("/cards/" + id, {
-        title: inputsValue.title,
-        subtitle: inputsValue.subtitle,
-        description: inputsValue.description,
-        phone: inputsValue.phone,
-        email: inputsValue.mail,
-        web: inputsValue.web,
-        image: {
-          url: inputsValue.url,
-          alt: inputsValue.alt,
-        },
-        address: {
-          state: inputsValue.state,
-          country: inputsValue.country,
-          city: inputsValue.city,
-          street: inputsValue.street,
-          houseNumber: inputsValue.houseNumber,
-          zip: +inputsValue.zip,
-        },
-      });
+      const cardData = normalizeCardData(inputsValue);
+      const { data } = await axios.put("/cards/" + id, { cardData });
       toast.success("Card updated successesfuly!", {
         position: "top-center",
         autoClose: 5000,

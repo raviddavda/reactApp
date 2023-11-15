@@ -4,7 +4,7 @@ import { useState } from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import { NavLink } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
-import { Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 
 const FooterComponent = () => {
   const [value, setValue] = useState(0);
@@ -15,9 +15,10 @@ const FooterComponent = () => {
         width: "100%",
         position: "fixed",
         bottom: "0",
-        border: "1px solid black",
+        zIndex: 1000,
       }}
     >
+      <Divider />
       <BottomNavigation
         showLabels
         value={value}

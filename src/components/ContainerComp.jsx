@@ -3,23 +3,14 @@ import React from "react";
 
 const ContainerComp = ({ children }) => {
   return (
-    <Container
-      sx={{
-        height: "50rem",
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <Container sx={{ mb: 10 }}>
       <Box
         sx={{
-          width: "70%",
           display: "flex",
           flexDirection: "column",
           padding: "3%",
           borderRadius: "10px",
-          boxShadow: "0 0 15px 5px rgba(211, 211, 211, .7)",
+          border: "1px solid lightgray",
         }}
       >
         {children}
