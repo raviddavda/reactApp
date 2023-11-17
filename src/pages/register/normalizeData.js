@@ -18,7 +18,7 @@ const normalizeData = (inputsValue, checked) => {
       city: inputsValue.city,
       street: inputsValue.street,
       houseNumber: inputsValue.houseNumber,
-      zip: +inputsValue.zip,
+      zip: inputsValue.zip,
     },
     isBusiness: checked,
   };

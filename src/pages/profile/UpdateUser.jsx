@@ -15,7 +15,7 @@ import ROUTES from "../../routes/ROUTES";
 import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router-dom";
 import { validateRegister } from "../../validations/registerValidation";
-import normalizeData from "./normalizeData";
+import normalizeData from "../register/normalizeData";
 import ContainerComp from "../../components/ContainerComp";
 
 const RegisterPage = () => {
@@ -61,7 +61,7 @@ const RegisterPage = () => {
 
       const request = normalizeData(inputsValue, checked);
 
-      const { data } = await axios.post("/users", request);
+      const { data } = await axios.put("/users", request);
       console.log("data", data);
       toast.success("Welcome, Please log in", {
         position: "top-center",
@@ -76,7 +76,7 @@ const RegisterPage = () => {
   return (
     <ContainerComp>
       <Typography component="h2" variant="h2" color="primary">
-        Sign up
+        Edit user settings
       </Typography>
       <Divider sx={{ m: 2 }} />
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -266,11 +266,8 @@ const RegisterPage = () => {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Sign Up
+          Update user setttings
         </Button>
-        <Link component={NavLink} to={ROUTES.LOGIN}>
-          Already have an account? Sign in
-        </Link>
       </Box>
     </ContainerComp>
   );

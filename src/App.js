@@ -1,7 +1,7 @@
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import LayoutComponent from "./layout/LayoutComponent";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Router from "./routes/Router";
 import useAutoLogin from "./hooks/useAutoLogin";
 import { useEffect, useState } from "react";
@@ -15,7 +15,7 @@ const App = () => {
       try {
         await autoLogin(); //false is default
       } catch (err) {
-        console.log(err);
+        toast.error("Could not authenticate Login!", { toastId: "login" });
       } finally {
         //this block of code will executed when the promise done
         //no matter if its done or got error

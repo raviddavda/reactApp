@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CardPage = () => {
   const [load, setLoad] = useState(false);
@@ -20,7 +21,9 @@ const CardPage = () => {
       .then(({ data }) => {
         setDataFromServer(data);
       })
-      .catch((error) => console.log(error))
+      .catch((error) =>
+        toast.error("Could not fetch card!", { toastId: "card" })
+      )
       .finally(() => {
         setLoad(true);
       });
@@ -71,6 +74,7 @@ const CardPage = () => {
             </Typography>
             <Typography>{dataFromServer.likes.length} Likes</Typography>
             <Typography>Card ID: {dataFromServer._id}</Typography>
+            <Typography>Created By: {dataFromServer.user_id}</Typography>
           </Box>
         </Paper>
       ) : (

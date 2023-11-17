@@ -27,22 +27,20 @@ const CardComponent = ({
   alt,
   like,
   cardNumber,
+  onCallCard,
   onDeleteCard,
   onEditCard,
   onFavCard,
 }) => {
   const handlePhoneClick = () => {
-    console.log("you clicked on phone btn");
+    onCallCard(_id);
   };
   const handleDeleteCardClick = () => {
-    console.log("_id to delete (CardComponent)", _id);
     onDeleteCard(_id);
   };
   const handleClickEditCard = () => {
-    // console.log("move to edit card page");
     onEditCard(_id);
   };
-
   const handleFavCard = () => {
     onFavCard(_id);
   };

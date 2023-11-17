@@ -4,6 +4,11 @@ import validation from "./validation";
 const loginSchema = Joi.object({
   email: Joi.string()
     .email({ tlds: { allow: false } })
+    .messages({
+      "string.empty": "This field is required",
+      "string.email": "Must be a valid email",
+      "string.min": "Must be a valid email",
+    })
     .required(),
   password: Joi.string()
     .pattern(
@@ -12,9 +17,9 @@ const loginSchema = Joi.object({
       )
     )
     .messages({
-      "string.pattern.base": "the password should be...",
-      "string.empty":
-        "password must be filled with something that you will forget",
+      "string.pattern.base":
+        "Password must be at least nine characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&*-",
+      "string.empty": "This field is required",
     })
     .min(2)
     .max(20)

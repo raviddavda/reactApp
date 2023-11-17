@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
 import axios from "axios";
 import ContainerComp from "../../components/ContainerComp";
-import { normalizeCardData } from "./normalizeCardData";
 import FieldTextComp from "../../components/FieldTextComp";
+import inputData from "./inputData";
+import normalizeCardData from "./normalizeCardData";
+import { validateCreateCard } from "../../validations/createCardValidation";
+import { toast } from "react-toastify";
 
 const CreateCardPage = () => {
   const [inputsValue, setInputValue] = useState({
@@ -25,7 +28,7 @@ const CreateCardPage = () => {
     houseNumber: "",
     zip: "",
   });
-  const [error, setError] = useState(false);
+  const [errorsState, setErrorsState] = useState({});
   const navigate = useNavigate();
   const handleInputChange = (e) => {
     setInputValue((currentState) => ({
@@ -36,10 +39,20 @@ const CreateCardPage = () => {
   const handleUpdateChangesClick = async () => {
     try {
       const inputData = normalizeCardData(inputsValue);
-      const { data } = await axios.post("/cards/", { inputData });
+      const joiResponse = validateCreateCard(inputData);
+      setErrorsState(joiResponse);
+      console.log("joiResponse", joiResponse);
+      console.log({ errorsState });
+      console.log({ inputData });
+      if (joiResponse) return;
+
+      const request = normalizeCardData(inputsValue);
+
+      const { data } = await axios.post("/cards", request);
       navigate(ROUTES.HOME);
     } catch (err) {
-      setError(err);
+      console.log(err);
+      // toast.error("Could not create card!", { toastId: "createCard" });
     }
   };
   return (
@@ -52,7 +65,18 @@ const CreateCardPage = () => {
       </Typography>
       <Divider sx={{ m: 2 }} />
       <Grid container spacing={2}>
-        <FieldTextComp inputsValue={inputsValue} onChange={handleInputChange} />
+        {inputData.map((input, index) => (
+          <FieldTextComp
+            isError={Boolean(errorsState[input.value])}
+            helperText={errorsState[input.value]}
+            key={index}
+            id={input.id}
+            label={input.label}
+            required={input.required}
+            value={inputsValue[input.value]}
+            onChange={handleInputChange}
+          />
+        ))}
       </Grid>
       <Button
         fullWidth

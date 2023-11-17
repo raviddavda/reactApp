@@ -4,6 +4,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import homePageNormalization from "../home/HomePageNormalize";
 import CardComponent from "../../components/CardComponent";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { toast } from "react-toastify";
 
 const FavCardsPage = () => {
   const [cards, setCards] = useState([]);
@@ -18,7 +20,7 @@ const FavCardsPage = () => {
         setCards(data);
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("Could not fetch cards!", { toastId: "cardPage" });
       });
   }, []);
 
@@ -32,23 +34,30 @@ const FavCardsPage = () => {
       </Typography>
       <Divider sx={{ m: 2 }} />
       <Grid container spacing={2}>
-        {cards
-          .filter((card) => card.likes)
-          .map((card) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={card._id}>
-              <CardComponent
-                _id={card._id}
-                title={card.title}
-                subtitle={card.subtitle}
-                phone={card.phone}
-                address={`${card.address.city}, ${card.address.street} ${card.address.houseNumber}`}
-                img={card.image.url}
-                alt={card.image.alt}
-                like={card.likes}
-                cardNum={card.cardNumber}
-              />
-            </Grid>
-          ))}
+        {cards ? (
+          cards
+            .filter((card) => card.likes)
+            .map((card) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={card._id}>
+                <CardComponent
+                  _id={card._id}
+                  title={card.title}
+                  subtitle={card.subtitle}
+                  phone={card.phone}
+                  address={`${card.address.city}, ${card.address.street} ${card.address.houseNumber}`}
+                  img={card.image.url}
+                  alt={card.image.alt}
+                  like={card.likes}
+                  cardNum={card.cardNumber}
+                />
+              </Grid>
+            ))
+        ) : (
+          <Typography pl={2} variant="h5">
+            You have not liked any cards, To like a card press the{" "}
+            <FavoriteIcon /> icon.
+          </Typography>
+        )}
       </Grid>
     </Fragment>
   );

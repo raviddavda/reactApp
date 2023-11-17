@@ -5,7 +5,7 @@ import axios from "axios";
 import ContainerComp from "../../components/ContainerComp";
 import ROUTES from "../../routes/ROUTES";
 import { toast } from "react-toastify";
-import { normalizeCardData } from "./normalizeCardData";
+import normalizeCardData from "./normalizeCardData";
 
 const EditCardPage = () => {
   const [inputsValue, setInputValue] = useState({
@@ -45,7 +45,7 @@ const EditCardPage = () => {
       });
       navigate(ROUTES.MYCARDS);
     } catch (err) {
-      console.log("err", err);
+      toast.error("Could not update card!", { toastId: "editCard" });
     }
   };
   return (

@@ -1,12 +1,13 @@
 import { Divider, Grid, Pagination, Typography } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
 import CardComponent from "../../components/CardComponent";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ROUTES from "../../routes/ROUTES";
 import useQueryParams from "../../hooks/useQueryParams";
 import { useSelector } from "react-redux";
 import homePageNormalization from "./HomePageNormalize";
+import { toast } from "react-toastify";
 
 let initDataFromServer = [];
 
@@ -24,13 +25,12 @@ const HomePage = () => {
       .get("/cards")
       .then(({ data }) => {
         if (userData) data = homePageNormalization(data, userData._id);
-        console.log("data", data);
         initDataFromServer = data;
         setDataFromServer(data);
         setTotalPages(Math.ceil(data.length / itemsPerPage));
       })
       .catch((error) => {
-        console.log("error:", error);
+        toast.error("Could not fetch cards!", { toastId: "cards" });
       });
   }, []);
 
@@ -51,17 +51,17 @@ const HomePage = () => {
   }, [query]);
 
   const handleDeleteCard = async (_id) => {
-    console.log("to del", _id);
     await axios
       .delete(`/cards/${_id}`)
       .then((response) => console.log(response))
       .catch((error) => {
-        console.log(error);
+        toast.error("Only Admin or the card creator can delete this card!", {
+          toastId: "delete",
+        });
       });
   };
 
   const handleEditCard = (_id) => {
-    console.log("to edit", _id);
     navigate(`${ROUTES.CARDEDIT}/${_id}`);
   };
 
@@ -70,8 +70,14 @@ const HomePage = () => {
       .patch(`/cards/${_id}`)
       .then((response) => {})
       .catch((error) => {
-        console.log(error);
+        toast.error("Could not fetch cards!", { toastId: "fav" });
       });
+  };
+
+  const handlePhoneClick = (_id) => {
+    dataFromServer.map((card) =>
+      card._id === _id ? window.open(`tel:${card.phone}`) : ""
+    );
   };
 
   return (
@@ -105,6 +111,7 @@ const HomePage = () => {
               alt={card.image.alt}
               like={card.likes}
               cardNum={card.cardNumber}
+              onCallCard={handlePhoneClick}
               onDeleteCard={handleDeleteCard}
               onEditCard={handleEditCard}
               onFavCard={handleFavCard}

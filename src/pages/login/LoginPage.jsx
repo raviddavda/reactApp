@@ -1,18 +1,18 @@
 import {
-  Alert,
   Box,
   Button,
   Checkbox,
+  Divider,
   FormControlLabel,
+  Grid,
   Link,
   TextField,
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import CssBaseline from "@mui/material/CssBaseline";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import ROUTES from "../../routes/ROUTES";
 import { validateLogin } from "../../validations/loginValidation";
@@ -26,10 +26,10 @@ const LoginPage = () => {
     password: "",
   });
   const [rememberMe, setRememberMe] = useState(true);
-  const [errorsState, setErrorsState] = useState(null);
+  const [errorsState, setErrorsState] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const autoLogin = useAutoLogin();
 
   const handleInputsChange = (e) => {
@@ -88,31 +88,40 @@ const LoginPage = () => {
 
   return (
     <ContainerComp>
-      <CssBaseline />
       <Typography component="h2" variant="h2" color="primary">
         Sign In
       </Typography>
-      <TextField
-        id="email"
-        label="Email"
-        variant="outlined"
-        value={inputsValue.email}
-        onChange={handleInputsChange}
-      />
-      {errorsState && errorsState.email && (
-        <Alert severity="warning">{errorsState.email}</Alert>
-      )}
-      <TextField
-        id="password"
-        label="Password"
-        variant="outlined"
-        type="password"
-        value={inputsValue.password}
-        onChange={handleInputsChange}
-      />
-      {errorsState && errorsState.password && (
-        <Alert severity="warning">{errorsState.password}</Alert>
-      )}
+      <Divider sx={{ m: 2 }} />
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            error={errorsState && errorsState.email ? true : false}
+            helperText={errorsState.email}
+            id="email"
+            label="Email"
+            variant="outlined"
+            autoFocus
+            fullWidth
+            required
+            value={inputsValue.email}
+            onChange={handleInputsChange}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            error={errorsState && errorsState.password ? true : false}
+            helperText={errorsState.password}
+            id="password"
+            label="Password"
+            variant="outlined"
+            type="password"
+            fullWidth
+            required
+            value={inputsValue.password}
+            onChange={handleInputsChange}
+          />
+        </Grid>
+      </Grid>
       <FormControlLabel
         control={
           <Checkbox

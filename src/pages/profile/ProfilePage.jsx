@@ -1,15 +1,16 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import ROUTES from "../../routes/ROUTES";
 
 const ProfilePage = () => {
   const [load, setLoad] = useState(false);
   const [dataFromServer, setDataFromServer] = useState([]);
-  const userData = useSelector((bigPie) => bigPie.authSlice.userData);
+  const { id } = useParams();
   useEffect(() => {
     axios
-      .get(`/users/${userData._id}`)
+      .get(`/users/${id}`)
       .then(({ data }) => {
         console.log("response", data);
         setDataFromServer(data);
@@ -54,6 +55,13 @@ const ProfilePage = () => {
             )}
           </Typography>
           <Typography>Account ID: {dataFromServer._id}</Typography>
+          <Button
+            component={Link}
+            to={`${ROUTES.PROFILEEDIT}/${id}`}
+            variant="contained"
+          >
+            Edit user
+          </Button>
         </Box>
       ) : (
         "loading"

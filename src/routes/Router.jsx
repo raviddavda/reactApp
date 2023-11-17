@@ -16,6 +16,7 @@ import CardPage from "../pages/cardPage/CardPage";
 import FavCardsPage from "../pages/favCards/FavCardsPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import AdminGuard from "../Guard/AdminGuard";
+import UpdateUser from "../pages/profile/UpdateUser";
 
 const Router = () => {
   return (
@@ -64,10 +65,18 @@ const Router = () => {
         }
       />
       <Route
-        path={ROUTES.PROFILE}
+        path={`${ROUTES.PROFILE}/:id`}
         element={
           <AuthGuard>
             <ProfilePage />
+          </AuthGuard>
+        }
+      />
+      <Route
+        path={`${ROUTES.PROFILEEDIT}/:id`}
+        element={
+          <AuthGuard>
+            <UpdateUser />
           </AuthGuard>
         }
       />

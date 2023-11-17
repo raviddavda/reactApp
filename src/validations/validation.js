@@ -2,7 +2,7 @@ const validation = (schema, userInput) => {
   const { error } = schema.validate(userInput, { abortEarly: false });
   if (!error) {
     //no errors
-    return null;
+    return false;
   }
   let errorObj = {};
   const { details } = error;

@@ -4,40 +4,26 @@ import { useState } from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import { NavLink } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
-import { Divider, Typography } from "@mui/material";
+import { BottomNavigationAction, Divider, Typography } from "@mui/material";
+import { alwaysLinks } from "../myLinks";
 
 const FooterComponent = () => {
   const [value, setValue] = useState(0);
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        position: "fixed",
-        bottom: "0",
-        zIndex: 1000,
+    <BottomNavigation
+      showLabels
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
       }}
     >
-      <Divider />
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      >
-        <NavLink to={ROUTES.ABOUT} style={{ textDecoration: "none" }}>
-          {({ isActive }) => (
-            <Typography
-              color={isActive ? "secondary" : "primary"}
-              sx={{ p: 2 }}
-            >
-              About
-            </Typography>
-          )}
+      {alwaysLinks.map((link, index) => (
+        <NavLink key={index} to={link.to}>
+          {link.children}
         </NavLink>
-      </BottomNavigation>
-    </Box>
+      ))}
+    </BottomNavigation>
   );
 };
 export default FooterComponent;

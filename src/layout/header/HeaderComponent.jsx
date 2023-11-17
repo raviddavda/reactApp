@@ -15,13 +15,14 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import SearchComp from "./ui/SearchComp";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
 import LeftDrawerComponent from "./ui/LeftDrawerComponent";
 
 const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const userData = useSelector((bigPie) => bigPie.authSlice.userData);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -45,7 +46,7 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
 
   const handleProfileBtn = () => {
     handleMenuClose();
-    navigate(ROUTES.PROFILE);
+    navigate(`${ROUTES.PROFILE}/${userData._id}`);
   };
 
   const handleThemeChange = (event) => {
@@ -117,6 +118,7 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
           <Switch checked={isDarkTheme} onChange={handleThemeChange} />
           <DarkModeIcon color="secondary" />
           <Box sx={{ display: "flex" }}>
+            <Typography></Typography>
             <IconButton
               size="large"
               edge="end"

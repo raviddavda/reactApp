@@ -10,6 +10,7 @@ const ROUTES = {
   CARDCREATE: "/createcard",
   USERMANAGER: "/usermanager",
   PROFILE: "/profile",
+  PROFILEEDIT: "/editprofile",
 };
 
 export default ROUTES;

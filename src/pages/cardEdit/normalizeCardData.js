@@ -16,9 +16,9 @@ const normalizeCardData = (inputsValue) => {
       city: inputsValue.city,
       street: inputsValue.street,
       houseNumber: inputsValue.houseNumber,
-      zip: +inputsValue.zip,
+      zip: inputsValue.zip,
     },
   };
 };
 
-export { normalizeCardData };
+export default normalizeCardData;
