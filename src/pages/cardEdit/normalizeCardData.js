@@ -4,7 +4,7 @@ const normalizeCardData = (inputsValue) => {
     subtitle: inputsValue.subtitle,
     description: inputsValue.description,
     phone: inputsValue.phone,
-    email: inputsValue.mail,
+    email: inputsValue.email,
     web: inputsValue.web,
     image: {
       url: inputsValue.url,
@@ -16,7 +16,7 @@ const normalizeCardData = (inputsValue) => {
       city: inputsValue.city,
       street: inputsValue.street,
       houseNumber: inputsValue.houseNumber,
-      zip: inputsValue.zip,
+      zip: +inputsValue.zip,
     },
   };
 };

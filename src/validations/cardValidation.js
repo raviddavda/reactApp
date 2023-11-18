@@ -1,7 +1,7 @@
 import Joi from "joi";
 import validation from "./validation";
 
-const createCardSchema = Joi.object({
+const cardSchema = Joi.object({
   title: Joi.string().min(2).max(256).required(),
   subtitle: Joi.string().min(2).max(256).required(),
   description: Joi.string().min(2).max(1024).required(),
@@ -30,8 +30,8 @@ const createCardSchema = Joi.object({
   }),
 });
 
-const validateCreateCard = (inputToCheck) =>
-  // createCardSchema.validate(inputToCheck, { abortEarly: false });
-  validation(createCardSchema, inputToCheck);
+const validateCard = (inputToCheck) =>
+  // cardSchema.validate(inputToCheck, { abortEarly: false });
+  validation(cardSchema, inputToCheck);
 
-export { validateCreateCard };
+export { validateCard };

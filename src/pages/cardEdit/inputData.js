@@ -1,4 +1,4 @@
-const fieldTextArr = [
+const fieldTextCardInputArr = [
   { id: "title", label: "Title", value: "title", required: true },
   { id: "subtitle", label: "Subtitle", value: "subtitle", required: true },
   {
@@ -8,7 +8,7 @@ const fieldTextArr = [
     required: true,
   },
   { id: "phone", label: "Phone Number", value: "phone", required: true },
-  { id: "mail", label: "Mail", value: "mail", required: true },
+  { id: "email", label: "Email", value: "email", required: true },
   { id: "web", label: "Web", value: "web" },
   { id: "url", label: "Image URL", value: "url" },
   { id: "alt", label: "Image Desctiption", value: "alt" },
@@ -25,4 +25,4 @@ const fieldTextArr = [
   { id: "zip", label: "Zip Code", value: "zip" },
 ];
 
-export default fieldTextArr;
+export default fieldTextCardInputArr;

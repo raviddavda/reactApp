@@ -8,6 +8,7 @@ const FieldTextComp = ({
   helperText,
   value,
   onChange,
+  type,
 }) => {
   return (
     <Grid key={id} item xs={12} sm={6}>
@@ -17,6 +18,7 @@ const FieldTextComp = ({
         id={id}
         label={label}
         required={required}
+        type={type}
         fullWidth
         variant="outlined"
         value={value}

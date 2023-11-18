@@ -53,9 +53,9 @@ const HomePage = () => {
   const handleDeleteCard = async (_id) => {
     await axios
       .delete(`/cards/${_id}`)
-      .then((response) => console.log(response))
+      .then((response) => {})
       .catch((error) => {
-        toast.error("Only Admin or the card creator can delete this card!", {
+        toast.error("Only Admin or the card creator can do this!", {
           toastId: "delete",
         });
       });
@@ -91,12 +91,12 @@ const HomePage = () => {
       <Divider sx={{ m: 2 }} />
       <Grid
         container
-        spacing={2}
         sx={{
+          mb: 10,
+          p: 2,
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
-          mb: 10,
+          justifyContent: "space-around",
         }}
       >
         {subset.map((card) => (

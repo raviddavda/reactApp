@@ -7,7 +7,7 @@ import ContainerComp from "../../components/ContainerComp";
 import FieldTextComp from "../../components/FieldTextComp";
 import inputData from "./inputData";
 import normalizeCardData from "./normalizeCardData";
-import { validateCreateCard } from "../../validations/createCardValidation";
+import { validateCard } from "../../validations/cardValidation";
 import { toast } from "react-toastify";
 
 const CreateCardPage = () => {
@@ -30,6 +30,7 @@ const CreateCardPage = () => {
   });
   const [errorsState, setErrorsState] = useState({});
   const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     setInputValue((currentState) => ({
       ...currentState,
@@ -39,11 +40,8 @@ const CreateCardPage = () => {
   const handleUpdateChangesClick = async () => {
     try {
       const inputData = normalizeCardData(inputsValue);
-      const joiResponse = validateCreateCard(inputData);
+      const joiResponse = validateCard(inputData);
       setErrorsState(joiResponse);
-      console.log("joiResponse", joiResponse);
-      console.log({ errorsState });
-      console.log({ inputData });
       if (joiResponse) return;
 
       const request = normalizeCardData(inputsValue);
@@ -51,10 +49,12 @@ const CreateCardPage = () => {
       const { data } = await axios.post("/cards", request);
       navigate(ROUTES.HOME);
     } catch (err) {
-      console.log(err);
-      // toast.error("Could not create card!", { toastId: "createCard" });
+      toast.error("A card already exists with that Email", {
+        toastId: "createCard",
+      });
     }
   };
+
   return (
     <ContainerComp>
       <Typography variant="h2" component="h2" color="primary">
@@ -81,7 +81,7 @@ const CreateCardPage = () => {
       <Button
         fullWidth
         color="primary"
-        variant="outlined"
+        variant="contained"
         sx={{ mt: 2 }}
         onClick={handleUpdateChangesClick}
       >

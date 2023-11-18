@@ -6,8 +6,6 @@ const normalizeData = (inputsValue, checked) => {
       last: inputsValue.last,
     },
     phone: inputsValue.phone,
-    email: inputsValue.email,
-    password: inputsValue.password,
     image: {
       url: inputsValue.url,
       alt: inputsValue.alt,
@@ -20,7 +18,6 @@ const normalizeData = (inputsValue, checked) => {
       houseNumber: inputsValue.houseNumber,
       zip: +inputsValue.zip,
     },
-    isBusiness: checked,
   };
 };
 

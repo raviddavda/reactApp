@@ -12,7 +12,6 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import ROUTES from "../../routes/ROUTES";
 import { validateLogin } from "../../validations/loginValidation";
@@ -29,7 +28,6 @@ const LoginPage = () => {
   const [errorsState, setErrorsState] = useState(false);
 
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
   const autoLogin = useAutoLogin();
 
   const handleInputsChange = (e) => {

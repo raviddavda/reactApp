@@ -10,6 +10,7 @@ import CardComponent from "../../components/CardComponent";
 import axios from "axios";
 import ROUTES from "../../routes/ROUTES";
 import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const MyCardsPage = () => {
   const [dataFromServer, setDataFromServer] = useState([]);
@@ -34,13 +35,29 @@ const MyCardsPage = () => {
   };
 
   const handleDeleteCard = async (_id) => {
-    console.log("to del", _id);
     await axios
-      .delete("/cards", _id)
-      .then((response) => console.log(response))
+      .delete(`/cards/${_id}`)
+      .then((response) => {})
       .catch((error) => {
-        console.log(error);
+        toast.error("Only Admin or the card creator can do this!", {
+          toastId: "delete",
+        });
       });
+  };
+
+  const handleFavCard = async (_id) => {
+    await axios
+      .patch(`/cards/${_id}`)
+      .then((response) => {})
+      .catch((error) => {
+        toast.error("Could not fetch cards!", { toastId: "fav" });
+      });
+  };
+
+  const handlePhoneClick = (_id) => {
+    dataFromServer.map((card) =>
+      card._id === _id ? window.open(`tel:${card.phone}`) : ""
+    );
   };
 
   return (
@@ -70,8 +87,10 @@ const MyCardsPage = () => {
                 img={card.image.url}
                 alt={card.image.alt}
                 cardNum={card.cardNumber}
-                onEditCard={handleEditCard}
+                onCallCard={handlePhoneClick}
                 onDeleteCard={handleDeleteCard}
+                onEditCard={handleEditCard}
+                onFavCard={handleFavCard}
               />
             </Grid>
           ))}

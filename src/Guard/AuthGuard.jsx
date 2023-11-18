@@ -10,14 +10,7 @@ const AuthGuard = ({ children }) => {
     return children;
   } else {
     toast.error("Please log in", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
+      toastId: "guard",
     });
     return <Navigate to={ROUTES.LOGIN} replace={true} />;
   }

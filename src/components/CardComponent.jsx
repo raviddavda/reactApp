@@ -47,7 +47,12 @@ const CardComponent = ({
   return (
     <Card>
       <CardActionArea component={Link} to={`${ROUTES.CARDPAGE}/${_id}`}>
-        <CardMedia component="img" image={img} alt={alt} />
+        <CardMedia
+          component="img"
+          image={img}
+          alt={alt}
+          sx={{ maxHeight: "195px" }}
+        />
       </CardActionArea>
       <CardContent>
         <CardHeader title={title} subheader={subTitle} sx={{ p: 0, mb: 1 }} />

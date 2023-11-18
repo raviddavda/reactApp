@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { TextField, Grid, Typography, Button } from "@mui/material";
+import { Grid, Typography, Button, Divider, Box } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import ContainerComp from "../../components/ContainerComp";
 import ROUTES from "../../routes/ROUTES";
+import inputData from "./inputData";
 import { toast } from "react-toastify";
 import normalizeCardData from "./normalizeCardData";
+import { validateCard } from "../../validations/cardValidation";
+import FieldTextComp from "../../components/FieldTextComp";
 
 const EditCardPage = () => {
   const [inputsValue, setInputValue] = useState({
@@ -13,7 +16,7 @@ const EditCardPage = () => {
     subtitle: "",
     phone: "",
     add: "",
-    mail: "",
+    email: "",
     description: "",
     web: "",
     url: "",
@@ -25,6 +28,7 @@ const EditCardPage = () => {
     houseNumber: "",
     zip: "",
   });
+  const [errorsState, setErrorsState] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -36,8 +40,15 @@ const EditCardPage = () => {
   };
   const handleUpdateChangesClick = async () => {
     try {
-      const cardData = normalizeCardData(inputsValue);
-      const { data } = await axios.put("/cards/" + id, { cardData });
+      const inputData = normalizeCardData(inputsValue);
+      const joiResponse = validateCard(inputData);
+      setErrorsState(joiResponse);
+      if (joiResponse) return;
+
+      const request = normalizeCardData(inputsValue);
+      console.log(request);
+
+      const { data } = await axios.put(`/cards/${id}`, request);
       toast.success("Card updated successesfuly!", {
         position: "top-center",
         autoClose: 5000,
@@ -45,173 +56,56 @@ const EditCardPage = () => {
       });
       navigate(ROUTES.MYCARDS);
     } catch (err) {
-      toast.error("Could not update card!", { toastId: "editCard" });
+      toast.error("Only Admin or the card creator can do this!", {
+        toastId: "editCard",
+      });
     }
   };
+
+  const handleCancel = () => {
+    navigate(ROUTES.HOME);
+  };
+
   return (
     <ContainerComp>
       <Typography component="h2" variant="h2" color="primary">
         Edit Card
       </Typography>
+      <Divider sx={{ m: 2 }} />
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            id="title"
-            label="Title"
-            variant="outlined"
+        {inputData.map((input, index) => (
+          <FieldTextComp
+            isError={Boolean(errorsState[input.value])}
+            helperText={errorsState[input.value]}
+            key={index}
+            id={input.id}
+            label={input.label}
+            required={input.required}
+            value={inputsValue[input.value]}
             onChange={handleInputChange}
-            value={inputsValue.title}
-            required
           />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            id="subtitle"
-            label="SubTitle"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.subtitle}
-            required
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            id="phone"
-            label="Phone Number"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.phone}
-            required
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            id="description"
-            label="Description"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.description}
-            required
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            id="web"
-            label="Web"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.web}
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            id="mail"
-            label="Email"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.mail}
-            required
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            id="url"
-            label="Url"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.url}
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            id="alt"
-            label="Alt"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.alt}
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            id="state"
-            label="State"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.state}
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            id="country"
-            label="Country"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.country}
-            required
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            id="city"
-            label="City"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.city}
-            required
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            id="street"
-            label="Street"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.street}
-            required
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            id="houseNumber"
-            label="House Number"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.houseNumber}
-            required
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            id="zip"
-            label="Zip"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={inputsValue.zip}
-          />
-        </Grid>
+        ))}
+      </Grid>
+      <Box sx={{ display: "flex", gap: 2 }}>
         <Button
           fullWidth
-          variant="outlined"
-          sx={{ mt: 2, bgcolor: "primary" }}
+          color="error"
+          variant="contained"
+          sx={{ mt: 2 }}
+          onClick={handleCancel}
+        >
+          Cancel
+        </Button>
+        <Button
+          fullWidth
+          color="primary"
+          variant="contained"
+          sx={{ mt: 2 }}
           onClick={handleUpdateChangesClick}
         >
           Update Changes
         </Button>
-      </Grid>
+      </Box>
     </ContainerComp>
   );
 };

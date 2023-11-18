@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   Button,
-  TextField,
   FormControlLabel,
   Checkbox,
   Link,
@@ -15,8 +14,10 @@ import ROUTES from "../../routes/ROUTES";
 import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router-dom";
 import { validateRegister } from "../../validations/registerValidation";
+import inputsData from "./inputsData";
 import normalizeData from "./normalizeData";
 import ContainerComp from "../../components/ContainerComp";
+import FieldTextComp from "../../components/FieldTextComp";
 
 const RegisterPage = () => {
   const [inputsValue, setInputsValue] = useState({
@@ -39,7 +40,7 @@ const RegisterPage = () => {
   const [checked, setChecked] = useState(true);
   const navigate = useNavigate();
 
-  const handleInputsChange = (e) => {
+  const handleInputChange = (e) => {
     setInputsValue((currentState) => ({
       ...currentState,
       [e.target.id]: e.target.value,
@@ -68,8 +69,17 @@ const RegisterPage = () => {
         autoClose: 5000,
       });
       navigate(ROUTES.LOGIN);
-    } catch (err) {
-      console.log("error", err);
+    } catch (error) {
+      toast.error(error.response.data, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -79,173 +89,21 @@ const RegisterPage = () => {
         Sign up
       </Typography>
       <Divider sx={{ m: 2 }} />
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Box component="form" noValidate onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              error={errorsState && errorsState.first ? true : false}
-              helperText={errorsState.first}
-              id="first"
-              name="first"
-              label="First Name"
-              autoComplete="given-name"
-              required
-              autoFocus
-              value={inputsValue.first}
-              onChange={handleInputsChange}
+          {inputsData.map((input, index) => (
+            <FieldTextComp
+              isError={Boolean(errorsState[input.value])}
+              helperText={errorsState[input.value]}
+              key={index}
+              id={input.id}
+              label={input.label}
+              required={input.required}
+              type={input.password}
+              value={inputsValue[input.value]}
+              onChange={handleInputChange}
             />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              id="middle"
-              name="middle"
-              label="Middle Name"
-              autoComplete="given-name"
-              value={inputsValue.middle}
-              onChange={handleInputsChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              error={errorsState && errorsState.last ? true : false}
-              helperText={errorsState.last}
-              id="last"
-              name="last"
-              label="Last Name"
-              autoComplete="family-name"
-              required
-              value={inputsValue.last}
-              onChange={handleInputsChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              error={errorsState && errorsState.email ? true : false}
-              helperText={errorsState.email}
-              id="email"
-              name="email"
-              label="Email Address"
-              autoComplete="email"
-              required
-              value={inputsValue.email}
-              onChange={handleInputsChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              error={errorsState && errorsState.password ? true : false}
-              helperText={errorsState.password}
-              type="password"
-              id="password"
-              name="password"
-              label="Password"
-              autoComplete="new-password"
-              required
-              value={inputsValue.password}
-              onChange={handleInputsChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              error={errorsState && errorsState.phone ? true : false}
-              helperText={errorsState.phone}
-              id="phone"
-              name="phone"
-              label="Phone"
-              autoComplete="new-phone"
-              required
-              value={inputsValue.phone}
-              onChange={handleInputsChange}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              id="url"
-              name="url"
-              label="Url"
-              value={inputsValue.url}
-              onChange={handleInputsChange}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              id="alt"
-              name="alt"
-              label="Alt"
-              value={inputsValue.alt}
-              onChange={handleInputsChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              id="state"
-              name="state"
-              label="State"
-              value={inputsValue.state}
-              onChange={handleInputsChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              error={errorsState && errorsState.country ? true : false}
-              helperText={errorsState.country}
-              id="country"
-              name="country"
-              label="Country"
-              required
-              value={inputsValue.country}
-              onChange={handleInputsChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              error={errorsState && errorsState.city ? true : false}
-              helperText={errorsState.city}
-              id="city"
-              name="city"
-              label="City"
-              required
-              value={inputsValue.city}
-              onChange={handleInputsChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              error={errorsState && errorsState.street ? true : false}
-              helperText={errorsState.street}
-              id="street"
-              name="street"
-              label="Street"
-              required
-              value={inputsValue.street}
-              onChange={handleInputsChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              error={errorsState && errorsState.houseNumber ? true : false}
-              helperText={errorsState.houseNumber}
-              id="houseNumber"
-              name="houseNumber"
-              label="House Number"
-              required
-              value={inputsValue.houseNumber}
-              onChange={handleInputsChange}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              error={errorsState && errorsState.zip ? true : false}
-              helperText={errorsState.zip}
-              id="zip"
-              name="zip"
-              label="Zip"
-              value={inputsValue.zip}
-              onChange={handleInputsChange}
-            />
-          </Grid>
+          ))}
           <Grid item xs={12}>
             <FormControlLabel
               control={

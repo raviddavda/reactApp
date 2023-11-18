@@ -38,8 +38,8 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
 
   const handleLogOut = () => {
     handleMenuClose();
-    localStorage.clear();
-    sessionStorage.clear();
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     dispatch(authActions.logout());
     navigate(ROUTES.LOGIN);
   };
