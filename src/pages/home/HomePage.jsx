@@ -1,7 +1,7 @@
 import { Divider, Grid, Pagination, Typography } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
 import CardComponent from "../../components/CardComponent";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ROUTES from "../../routes/ROUTES";
 import useQueryParams from "../../hooks/useQueryParams";
@@ -71,7 +71,8 @@ const HomePage = () => {
       .then((response) => {})
       .catch((error) => {
         toast.error("Could not fetch cards!", { toastId: "fav" });
-      });
+      })
+      .finally(() => window.location.reload());
   };
 
   const handlePhoneClick = (_id) => {
@@ -91,6 +92,7 @@ const HomePage = () => {
       <Divider sx={{ m: 2 }} />
       <Grid
         container
+        spacing={5}
         sx={{
           mb: 10,
           p: 2,
@@ -100,7 +102,7 @@ const HomePage = () => {
         }}
       >
         {subset.map((card) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={card._id}>
+          <Grid item xs={12} md={4} key={card._id}>
             <CardComponent
               _id={card._id}
               title={card.title}

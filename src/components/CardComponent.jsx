@@ -91,7 +91,7 @@ const CardComponent = ({
               <DeleteIcon />
             </IconButton>
             <IconButton onClick={handleFavCard}>
-              <FavoriteIcon color={like ? "warning" : ""} />
+              <FavoriteIcon color={like ? "heart" : ""} />
             </IconButton>
           </Box>
         </Box>

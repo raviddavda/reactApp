@@ -13,12 +13,10 @@ const App = () => {
   useEffect(() => {
     (async () => {
       try {
-        await autoLogin(); //false is default
+        await autoLogin();
       } catch (err) {
         toast.error("Could not authenticate Login!", { toastId: "login" });
       } finally {
-        //this block of code will executed when the promise done
-        //no matter if its done or got error
         setDoneAuth(true);
       }
     })();

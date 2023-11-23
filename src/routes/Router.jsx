@@ -5,7 +5,6 @@ import HomePage from "../pages/home/HomePage";
 import RegisterPage from "../pages/register/RegisterPage";
 import LoginPage from "../pages/login/LoginPage";
 import NotFoundPage from "../pages/notFound/NotFoundPage";
-import UserManager from "../pages/userManagment/UserManager";
 import CreateCardPage from "../pages/cardEdit/CreateCardPage";
 import EditCardPage from "../pages/cardEdit/EditCardPage";
 import AuthGuard from "../Guard/AuthGuard";
@@ -17,6 +16,7 @@ import FavCardsPage from "../pages/favCards/FavCardsPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import AdminGuard from "../Guard/AdminGuard";
 import UpdateUser from "../pages/profile/UpdateUser";
+import UserManagerPage from "../pages/userManagment/UserManagerPage";
 
 const Router = () => {
   return (
@@ -81,11 +81,11 @@ const Router = () => {
         }
       />
       <Route
-        path={ROUTES.USERMANAGER}
+        path={ROUTES.SANDBOX}
         element={
           <AuthGuard>
             <AdminGuard>
-              <UserManager />
+              <UserManagerPage />
             </AdminGuard>
           </AuthGuard>
         }

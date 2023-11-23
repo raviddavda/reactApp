@@ -1,27 +1,27 @@
 import { useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  MenuItem,
+  Menu,
+  Switch,
+} from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { Switch } from "@mui/material";
-import Links from "./ui/Links";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import SearchComp from "./ui/SearchComp";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
-import LeftDrawerComponent from "./ui/LeftDrawerComponent";
+import TabsRouter from "./ui/TabsComp";
+import Links from "./ui/Links";
 
 const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
   const userData = useSelector((bigPie) => bigPie.authSlice.userData);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -53,13 +53,6 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
     onThemeChange(event.target.checked);
   };
 
-  const handleOpenDrawerClick = () => {
-    setIsOpen(true);
-  };
-  const handleCloseDrawerClick = () => {
-    setIsOpen(false);
-  };
-
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -83,42 +76,25 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
   );
 
   return (
-    <Box sx={{ flexGrow: 1, mb: 10 }}>
+    <Box sx={{ flexGrow: 1, mb: 15 }}>
       <AppBar position="fixed">
         <Toolbar sx={{ alignItems: "center" }}>
-          <IconButton
-            sx={{ display: { xs: "block", md: "none" } }}
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleOpenDrawerClick}
-          >
-            <MenuIcon />
-          </IconButton>
-          <LeftDrawerComponent
-            isOpen={isOpen}
-            onCloseDrawer={handleCloseDrawerClick}
-          />
           <Typography
+            component={Link}
             variant="h6"
-            noWrap
-            component="div"
             to={ROUTES.HOME}
-            sx={{ display: { xs: "none", sm: "block" } }}
+            color="secondary"
+            sx={{ textDecoration: "none" }}
           >
             BCard
           </Typography>
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Links />
-          </Box>
+          {/* <Links /> */}
           <SearchComp />
           <Box sx={{ flexGrow: 1 }} />
           <LightModeIcon color="secondary" />
           <Switch checked={isDarkTheme} onChange={handleThemeChange} />
           <DarkModeIcon color="secondary" />
           <Box sx={{ display: "flex" }}>
-            <Typography></Typography>
             <IconButton
               size="large"
               edge="end"
@@ -132,6 +108,7 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
             </IconButton>
           </Box>
         </Toolbar>
+        <TabsRouter />
       </AppBar>
       {renderMenu}
     </Box>

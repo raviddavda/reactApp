@@ -1,29 +1,50 @@
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
-import { useState } from "react";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
-import { NavLink } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
-import { BottomNavigationAction, Divider, Typography } from "@mui/material";
-import { alwaysLinks } from "../myLinks";
+import { NavLink } from "react-router-dom";
 
-const FooterComponent = () => {
+export default function SimpleBottomNavigation() {
   const [value, setValue] = useState(0);
 
   return (
-    <BottomNavigation
-      showLabels
-      value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
+    <Box
+      sx={{
+        width: "100%",
+        position: "fixed",
+        bottom: 0,
       }}
     >
-      {alwaysLinks.map((link, index) => (
-        <NavLink key={index} to={link.to}>
-          {link.children}
-        </NavLink>
-      ))}
-    </BottomNavigation>
+      <BottomNavigation
+        showLabels
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+      >
+        <BottomNavigationAction
+          component={NavLink}
+          to={ROUTES.HOME}
+          label="Home"
+          icon={<HomeIcon />}
+        />
+        <BottomNavigationAction
+          component={NavLink}
+          to={ROUTES.FAVCARDS}
+          label="Favorites"
+          icon={<FavoriteIcon />}
+        />
+        <BottomNavigationAction
+          component={NavLink}
+          to={ROUTES.ABOUT}
+          label="About"
+          icon={<InfoIcon />}
+        />
+      </BottomNavigation>
+    </Box>
   );
-};
-export default FooterComponent;
+}

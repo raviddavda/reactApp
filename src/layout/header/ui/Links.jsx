@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import NavLinkComponent from "../NavLink";
 import nextKey from "generate-my-key";
 import { alwaysLinks, loggedInLinks, notLoggedInLinks } from "../../myLinks";

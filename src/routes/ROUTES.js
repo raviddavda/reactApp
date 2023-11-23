@@ -8,7 +8,7 @@ const ROUTES = {
   CARDEDIT: "/editcard",
   CARDPAGE: "/card",
   CARDCREATE: "/createcard",
-  USERMANAGER: "/usermanager",
+  SANDBOX: "/sandbox",
   PROFILE: "/profile",
   PROFILEEDIT: "/editprofile",
 };
