@@ -23,14 +23,15 @@ const MyCardsPage = () => {
       .then(({ data }) => {
         setDataFromServer(data);
       })
-      .catch((error) => console.log(error))
+      .catch((error) =>
+        toast.error("Could not fetch cards!", { toastId: "fetch" })
+      )
       .finally(() => {
         setLoad(true);
       });
   }, []);
 
   const handleEditCard = (_id) => {
-    console.log("to edit", _id);
     navigate(`${ROUTES.CARDEDIT}/${_id}`);
   };
 
@@ -72,7 +73,7 @@ const MyCardsPage = () => {
       {load ? (
         <Grid container spacing={2}>
           {dataFromServer.length === 0 && (
-            <Typography pl={2} variant="h5">
+            <Typography m={2} variant="h5">
               You have not created any cards.
             </Typography>
           )}
@@ -98,9 +99,14 @@ const MyCardsPage = () => {
       ) : (
         <CircularProgress />
       )}
-      <Typography>
+      <Typography variant="h5">
         Click{" "}
-        <Typography component={NavLink} to={ROUTES.CARDCREATE}>
+        <Typography
+          variant="h5"
+          color="primary"
+          component={NavLink}
+          to={ROUTES.CARDCREATE}
+        >
           here
         </Typography>{" "}
         to create a card.

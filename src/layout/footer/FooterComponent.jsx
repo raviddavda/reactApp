@@ -6,9 +6,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import ROUTES from "../../routes/ROUTES";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function SimpleBottomNavigation() {
+const FooterComponent = () => {
   const [value, setValue] = useState(0);
 
   return (
@@ -27,24 +27,29 @@ export default function SimpleBottomNavigation() {
         }}
       >
         <BottomNavigationAction
-          component={NavLink}
+          component={Link}
           to={ROUTES.HOME}
           label="Home"
+          value={value}
           icon={<HomeIcon />}
         />
         <BottomNavigationAction
-          component={NavLink}
-          to={ROUTES.FAVCARDS}
-          label="Favorites"
-          icon={<FavoriteIcon />}
-        />
-        <BottomNavigationAction
-          component={NavLink}
+          component={Link}
           to={ROUTES.ABOUT}
           label="About"
+          value={value}
           icon={<InfoIcon />}
+        />
+        <BottomNavigationAction
+          component={Link}
+          to={ROUTES.FAVCARDS}
+          label="Favorites"
+          value={value}
+          icon={<FavoriteIcon />}
         />
       </BottomNavigation>
     </Box>
   );
-}
+};
+
+export default FooterComponent;

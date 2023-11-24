@@ -1,4 +1,4 @@
-import { Divider, Typography, Tooltip } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
@@ -18,50 +18,44 @@ const AboutPage = () => {
         What We Offer
       </Typography>
       <Typography mb={3}>
-        <Tooltip title="Browse Cards" arrow placement="top">
-          <Typography
-            component={Link}
-            to={ROUTES.HOME}
-            variant="h6"
-            color="primary"
-            sx={{ textDecoration: "underline", mb: 2 }}
-          >
-            Discover:
-          </Typography>{" "}
-        </Tooltip>
+        <Typography
+          component={Link}
+          to={ROUTES.HOME}
+          variant="h6"
+          color="primary"
+          sx={{ textDecoration: "underline", mb: 2 }}
+        >
+          Discover:
+        </Typography>{" "}
         Explore a diverse gallery of business card designs crafted by talented
         individuals from around the world. Find inspiration, explore trending
         styles, and discover innovative ideas to make your mark.
       </Typography>
       <Typography mb={3}>
-        <Tooltip title="Create Cards" arrow placement="top">
-          <Typography
-            component={Link}
-            to={ROUTES.CARDCREATE}
-            variant="h6"
-            color="primary"
-            sx={{ textDecoration: "underline", mb: 2 }}
-          >
-            Create:
-          </Typography>{" "}
-        </Tooltip>
+        <Typography
+          component={Link}
+          to={ROUTES.CARDCREATE}
+          variant="h6"
+          color="primary"
+          sx={{ textDecoration: "underline", mb: 2 }}
+        >
+          Create:
+        </Typography>{" "}
         Unleash your creativity with our intuitive and user-friendly design
         tools. Customize every aspect of your business card, from fonts and
         colors to layout and graphics. Tailor your card to reflect your brand
         and personality effortlessly.
       </Typography>
       <Typography mb={3}>
-        <Tooltip title="Register" arrow placement="top">
-          <Typography
-            component={Link}
-            to={ROUTES.REGISTER}
-            variant="h6"
-            color="primary"
-            sx={{ textDecoration: "underline", mb: 2 }}
-          >
-            Get Involved:
-          </Typography>{" "}
-        </Tooltip>
+        <Typography
+          component={Link}
+          to={ROUTES.REGISTER}
+          variant="h6"
+          color="primary"
+          sx={{ textDecoration: "underline", mb: 2 }}
+        >
+          Get Involved:
+        </Typography>{" "}
         Whether you're an aspiring designer, a seasoned professional, or simply
         passionate about innovative business card designs, BCard welcomes you!
         Join our community, share your creations, and be part of a platform

@@ -49,7 +49,7 @@ const ProfilePage = () => {
       dispatch(authActions.logout());
       navigate(ROUTES.HOME);
     } catch (error) {
-      console.log(error);
+      toast.error("Could not fetch user!", { toastId: "user" });
     }
   };
 

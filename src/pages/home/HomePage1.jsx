@@ -13,24 +13,18 @@ const HomePage = () => {
     axios
       .get("/cards")
       .then(({ data }) => {
-        console.log("data", data);
         setDataFromServer(data);
       })
-      .catch((err) => {
-        console.log("err", err);
-      });
+      .catch((err) => {});
   }, []);
   const handleDeleteCard = (_id) => {
-    console.log("_id to delete (HomePage)", _id);
     setDataFromServer((dataFromServerCopy) =>
       dataFromServerCopy.filter((card) => card._id !== _id)
     );
     // dataFromServer = dataFromServer.filter((card) => card._id != _id);
     //return true for all the cards that has id that not equal to the id we want to delete
-    // console.log("dataFromServer", dataFromServer);
   };
   const handleEditCard = (_id) => {
-    // console.log("id to edit", _id);
     navigate(`${ROUTES.EDITCARD}/${_id}`);
   };
   return (

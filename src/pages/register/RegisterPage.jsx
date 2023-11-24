@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Button,
   FormControlLabel,
@@ -61,24 +61,14 @@ const RegisterPage = () => {
 
       const request = normalizeData(inputsValue, checked);
 
-      const { data } = await axios.post("/users", request);
-      console.log("data", data);
+      await axios.post("/users", request);
       toast.success("Welcome, Please log in", {
         position: "top-center",
         autoClose: 5000,
       });
       navigate(ROUTES.LOGIN);
     } catch (error) {
-      toast.error(error.response.data, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error(error.response.data, { toastId: "login" });
     }
   };
 

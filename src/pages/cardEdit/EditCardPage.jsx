@@ -46,9 +46,8 @@ const EditCardPage = () => {
       if (joiResponse) return;
 
       const request = normalizeCardData(inputsValue);
-      console.log(request);
 
-      const { data } = await axios.put(`/cards/${id}`, request);
+      await axios.put(`/cards/${id}`, request);
       toast.success("Card updated successesfuly!", {
         position: "top-center",
         autoClose: 5000,

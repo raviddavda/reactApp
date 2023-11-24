@@ -18,14 +18,13 @@ const FavCardsPage = () => {
     axios
       .get("/cards")
       .then(({ data }) => {
-        console.log(data);
         homePageNormalization(data, userData._id);
         setCards(data);
       })
       .catch((error) => {
         toast.error("Could not fetch cards!", { toastId: "cardPage" });
       });
-  }, []);
+  }, [userData._id]);
 
   const handleEditCard = (_id) => {
     navigate(`${ROUTES.CARDEDIT}/${_id}`);
@@ -67,7 +66,7 @@ const FavCardsPage = () => {
       </Typography>
       <Divider sx={{ m: 2 }} />
       <Grid container spacing={2}>
-        {cards ? (
+        {cards.filter((card) => card.likes).length ? (
           cards
             .filter((card) => card.likes)
             .map((card) => (
@@ -90,9 +89,9 @@ const FavCardsPage = () => {
               </Grid>
             ))
         ) : (
-          <Typography pl={2} variant="h5">
+          <Typography m={2} variant="h5">
             You have not liked any cards, To like a card press the{" "}
-            <FavoriteIcon /> icon.
+            <FavoriteIcon color="heart" /> icon.
           </Typography>
         )}
       </Grid>

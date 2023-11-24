@@ -17,14 +17,29 @@ import ProfilePage from "../pages/profile/ProfilePage";
 import AdminGuard from "../Guard/AdminGuard";
 import UpdateUser from "../pages/profile/UpdateUser";
 import UserManagerPage from "../pages/userManagment/UserManagerPage";
+import NotLoggedInGuard from "../Guard/NotLoggedInGuard";
 
 const Router = () => {
   return (
     <Routes>
       <Route path={ROUTES.HOME} element={<HomePage />} />
       <Route path={ROUTES.ABOUT} element={<AboutPage />} />
-      <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
-      <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+      <Route
+        path={ROUTES.REGISTER}
+        element={
+          <NotLoggedInGuard>
+            <RegisterPage />
+          </NotLoggedInGuard>
+        }
+      />
+      <Route
+        path={ROUTES.LOGIN}
+        element={
+          <NotLoggedInGuard>
+            <LoginPage />
+          </NotLoggedInGuard>
+        }
+      />
       <Route
         path={`${ROUTES.CARDEDIT}/:id`}
         element={

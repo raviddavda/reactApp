@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { toast } from "react-toastify";
 
 const DataTable = () => {
   const [dataFromServer, setDataFromServer] = useState([]);
@@ -19,7 +20,7 @@ const DataTable = () => {
         setDataFromServer(data);
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("Could not fetch users!", { toasId: "fetch" });
       });
   }, []);
 

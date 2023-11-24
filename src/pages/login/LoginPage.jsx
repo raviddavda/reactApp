@@ -48,7 +48,6 @@ const LoginPage = () => {
         password: inputsValue.password,
       });
 
-      console.log("joiResponse", joiResponse);
       setErrorsState(joiResponse);
       if (joiResponse) return;
 
@@ -69,7 +68,6 @@ const LoginPage = () => {
       });
       autoLogin(true);
       navigate(ROUTES.HOME);
-      console.log("data from server", data);
     } catch (error) {
       toast.error(error.response.data, {
         position: "top-center",
