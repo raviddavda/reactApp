@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   FormControlLabel,
@@ -56,7 +56,6 @@ const RegisterPage = () => {
       event.preventDefault();
       const inputData = normalizeData(inputsValue, checked);
       const joiResponse = validateRegister(inputData);
-      console.log("joi", joiResponse);
       setErrorsState(joiResponse);
       if (joiResponse) return;
 

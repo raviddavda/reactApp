@@ -17,7 +17,7 @@ import ROUTES from "../../routes/ROUTES";
 import ContainerComp from "../../components/ContainerComp";
 import { authActions } from "../../store/auth";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const ProfilePage = () => {
   const [load, setLoad] = useState(false);
@@ -39,11 +39,11 @@ const ProfilePage = () => {
       .finally(() => {
         setLoad(true);
       });
-  }, []);
+  }, [id]);
 
   const handleDeleteUser = async () => {
     try {
-      const { data } = await axios.delete(`/users/${id}`);
+      await axios.delete(`/users/${id}`);
       localStorage.removeItem("token");
       sessionStorage.removeItem("token");
       dispatch(authActions.logout());
@@ -75,6 +75,7 @@ const ProfilePage = () => {
           <Box
             sx={{
               display: "flex",
+              flexDirection: { md: "row", xs: "column-reverse" },
               justifyContent: "space-between",
               alignItems: "start",
               m: 1,
@@ -117,7 +118,14 @@ const ProfilePage = () => {
                 Account ID: <Typography>{dataFromServer._id}</Typography>
               </Typography>
             </Box>
-            <Box>
+            <Box
+              sx={{
+                width: { md: "30%", xs: "100%" },
+                display: "flex",
+                justifyContent: { xs: "center" },
+                m: { xs: 1 },
+              }}
+            >
               <img
                 style={{ width: "250px" }}
                 src={dataFromServer.image.url}

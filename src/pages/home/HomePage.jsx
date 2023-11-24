@@ -68,11 +68,12 @@ const HomePage = () => {
   const handleFavCard = async (_id) => {
     await axios
       .patch(`/cards/${_id}`)
-      .then((response) => {})
-      .catch((error) => {
-        toast.error("Could not fetch cards!", { toastId: "fav" });
+      .then((response) => {
+        window.location.reload();
       })
-      .finally(() => window.location.reload());
+      .catch((error) => {
+        toast.error("Log in to like a card!", { toastId: "fav" });
+      });
   };
 
   const handlePhoneClick = (_id) => {
@@ -106,13 +107,13 @@ const HomePage = () => {
             <CardComponent
               _id={card._id}
               title={card.title}
-              subtitle={card.subtitle}
+              subTitle={card.subtitle}
               phone={card.phone}
               address={`${card.address.city}, ${card.address.street} ${card.address.houseNumber}`}
               img={card.image.url}
               alt={card.image.alt}
               like={card.likes}
-              cardNum={card.cardNumber}
+              email={card.email}
               onCallCard={handlePhoneClick}
               onDeleteCard={handleDeleteCard}
               onEditCard={handleEditCard}

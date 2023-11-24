@@ -34,10 +34,16 @@ function MyTabs() {
 
   const loggedIn = useSelector((bigPie) => bigPie.authSlice.loggedIn);
 
+  const adminAccount = useSelector(
+    (bigPie) => bigPie?.authSlice?.userData?.isAdmin
+  );
+
   useEffect(() => {
     if (loggedIn) {
-      setIsAdmin(true);
       setIsloggedIn(true);
+    }
+    if (adminAccount) {
+      setIsAdmin(true);
     }
   }, [loggedIn]);
 

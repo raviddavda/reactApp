@@ -42,6 +42,7 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
     sessionStorage.removeItem("token");
     dispatch(authActions.logout());
     navigate(ROUTES.LOGIN);
+    window.location.reload();
   };
 
   const handleProfileBtn = () => {

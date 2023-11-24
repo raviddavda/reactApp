@@ -6,7 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { darkThemeActions } from "../store/theme";
 import tmc from "twin-moon-color";
 import { useDispatch, useSelector } from "react-redux";
-import { red } from "@mui/material/colors";
+import { red, green } from "@mui/material/colors";
 
 const LayoutComponent = ({ children }) => {
   const isDarkTheme = useSelector((bigPie) => bigPie.themeSlice.darkTheme);
@@ -14,6 +14,7 @@ const LayoutComponent = ({ children }) => {
 
   const themes = tmc({
     heart: red[500],
+    tick: green[500],
   });
 
   const handleThemeChange = (checked) => {

@@ -1,18 +1,27 @@
 import {
   Box,
+  Button,
   CircularProgress,
-  Container,
-  Paper,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import ROUTES from "../../routes/ROUTES";
 import { toast } from "react-toastify";
+import ContainerComp from "../../components/ContainerComp";
 
 const CardPage = () => {
   const [load, setLoad] = useState(false);
   const [dataFromServer, setDataFromServer] = useState([]);
+  const [open, setOpen] = useState(false);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -29,58 +38,138 @@ const CardPage = () => {
       });
   }, [id]);
 
+  const handleDeleteCard = async (_id) => {
+    await axios
+      .delete(`/cards/${_id}`)
+      .then((response) => {})
+      .catch((error) => {
+        toast.error("Only Admin or the card creator can do this!", {
+          toastId: "delete",
+        });
+      });
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <Container
-      sx={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <ContainerComp>
       {load ? (
-        <Paper
-          elevation={3}
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-            p: 2,
-          }}
-        >
+        <>
           <Box>
-            <img
-              style={{ width: "500px" }}
-              src={dataFromServer.image.url}
-              alt={dataFromServer.image.alt}
-            />
-          </Box>
-          <Box>
-            <Typography variant="h2" color="primary">
+            <Typography color="primary" variant="h2" component="h2">
               {dataFromServer.title}
             </Typography>
-            <Typography variant="h4" color="primary">
+            <Typography color="primary" variant="h5" component="h5">
               {dataFromServer.subtitle}
             </Typography>
-            <Typography>{dataFromServer.description}</Typography>
-            <Typography>Email: {dataFromServer.email}</Typography>
-            <Typography>Phone: {dataFromServer.phone}</Typography>
-            <Typography>Created at: {dataFromServer.createdAt}</Typography>
-            <Typography>
-              Adress: {dataFromServer.address.country},{" "}
-              {dataFromServer.address.city}, {dataFromServer.address.street},{" "}
-              {dataFromServer.address.houseNumber}
-            </Typography>
-            <Typography>{dataFromServer.likes.length} Likes</Typography>
-            <Typography>Card ID: {dataFromServer._id}</Typography>
-            <Typography>Created By: {dataFromServer.user_id}</Typography>
           </Box>
-        </Paper>
+          <Divider sx={{ m: 2 }} />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { md: "row", xs: "column-reverse" },
+              justifyContent: "space-between",
+              alignItems: "start",
+              m: 1,
+            }}
+          >
+            <Box>
+              <Typography variant="h6">
+                Description:{" "}
+                <Typography>{dataFromServer.description}</Typography>
+              </Typography>
+              <Typography variant="h6">
+                Email: <Typography>{dataFromServer.email}</Typography>
+              </Typography>
+              <Typography variant="h6">
+                Phone: <Typography>{dataFromServer.phone}</Typography>
+              </Typography>
+              <Typography variant="h6">
+                Date Created:{" "}
+                <Typography>{dataFromServer.createdAt}</Typography>
+              </Typography>
+              <Typography variant="h6">
+                Adress:{" "}
+                <Typography>
+                  {dataFromServer.address.country},{" "}
+                  {dataFromServer.address.city}, {dataFromServer.address.street}
+                  , {dataFromServer.address.houseNumber}
+                </Typography>
+              </Typography>
+              <Typography variant="h6">
+                Likes: <Typography>{dataFromServer.likes.length}</Typography>
+              </Typography>
+              <Typography variant="h6">
+                Card ID: <Typography>{dataFromServer._id}</Typography>
+              </Typography>
+              <Typography variant="h6">
+                Created By: <Typography>{dataFromServer.user_id}</Typography>
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                width: { md: "30%", xs: "100%" },
+                display: "flex",
+                justifyContent: { xs: "center" },
+                m: { xs: 1 },
+              }}
+            >
+              <img
+                style={{ width: "350px" }}
+                src={dataFromServer.image.url}
+                alt={dataFromServer.image.alt}
+              />
+            </Box>
+          </Box>
+          <Button
+            sx={{ m: 1 }}
+            component={Link}
+            to={`${ROUTES.CARDEDIT}/${id}`}
+            variant="contained"
+          >
+            Edit card
+          </Button>
+          <Button
+            sx={{ m: 1 }}
+            color="error"
+            variant="contained"
+            onClick={handleClickOpen}
+          >
+            Delete card
+          </Button>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{"Delete Card?"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                This cannot be undone, are you sure you want to delete this
+                card?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} autoFocus>
+                CANCEL
+              </Button>
+              <Button color="error" onClick={handleDeleteCard}>
+                DELETE
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </>
       ) : (
         <CircularProgress />
       )}
-    </Container>
+    </ContainerComp>
   );
 };
 

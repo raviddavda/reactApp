@@ -16,6 +16,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import ROUTES from "../routes/ROUTES";
+import Tooltip from "@mui/material/Tooltip";
 
 const CardComponent = ({
   _id,
@@ -26,7 +27,7 @@ const CardComponent = ({
   img,
   alt,
   like,
-  cardNumber,
+  email,
   onCallCard,
   onDeleteCard,
   onEditCard,
@@ -60,6 +61,12 @@ const CardComponent = ({
         <Box sx={{ mt: 1 }}>
           <Typography variant="body2">
             <Typography fontWeight="700" variant="subtitle1" component="span">
+              Email:{" "}
+            </Typography>
+            {email}
+          </Typography>
+          <Typography variant="body2">
+            <Typography fontWeight="700" variant="subtitle1" component="span">
               Phone:{" "}
             </Typography>
             {phone}
@@ -70,29 +77,31 @@ const CardComponent = ({
             </Typography>
             {address}
           </Typography>
-          <Typography variant="body2">
-            <Typography fontWeight="700" variant="subtitle1" component="span">
-              Card Number:{" "}
-            </Typography>
-            {cardNumber}
-          </Typography>
         </Box>
         <Box display="flex" justifyContent="space-between">
           <Box>
-            <IconButton onClick={handlePhoneClick}>
-              <PhoneIcon />
-            </IconButton>
-            <IconButton onClick={handleClickEditCard}>
-              <CreateIcon />
-            </IconButton>
+            <Tooltip title="Call" arrow>
+              <IconButton onClick={handlePhoneClick}>
+                <PhoneIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Edit" arrow>
+              <IconButton onClick={handleClickEditCard}>
+                <CreateIcon />
+              </IconButton>
+            </Tooltip>
           </Box>
           <Box>
-            <IconButton onClick={handleDeleteCardClick}>
-              <DeleteIcon />
-            </IconButton>
-            <IconButton onClick={handleFavCard}>
-              <FavoriteIcon color={like ? "heart" : ""} />
-            </IconButton>
+            <Tooltip title="Delete" arrow>
+              <IconButton onClick={handleDeleteCardClick}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Like" arrow>
+              <IconButton onClick={handleFavCard}>
+                <FavoriteIcon color={like ? "heart" : ""} />
+              </IconButton>
+            </Tooltip>
           </Box>
         </Box>
       </CardContent>
