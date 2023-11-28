@@ -50,7 +50,7 @@ function MyTabs() {
   return (
     <Tabs
       value={currentTab || false}
-      textColor="secondary"
+      textColor="inherit"
       indicatorColor="secondary"
       variant="scrollable"
       scrollButtons={true}

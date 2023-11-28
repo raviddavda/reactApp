@@ -18,7 +18,6 @@ import ROUTES from "../../routes/ROUTES";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
 import TabsRouter from "./ui/TabsComp";
-import Links from "./ui/Links";
 
 const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -84,17 +83,16 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
             component={Link}
             variant="h6"
             to={ROUTES.HOME}
-            color="secondary"
+            color="inherit"
             sx={{ textDecoration: "none" }}
           >
             BCard
           </Typography>
-          {/* <Links /> */}
           <SearchComp />
           <Box sx={{ flexGrow: 1 }} />
-          <LightModeIcon color="secondary" />
+          <LightModeIcon color="inherit" />
           <Switch checked={isDarkTheme} onChange={handleThemeChange} />
-          <DarkModeIcon color="secondary" />
+          <DarkModeIcon color="inherit" />
           <Box sx={{ display: "flex" }}>
             <IconButton
               size="large"
@@ -105,7 +103,7 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle color="inherit" />
             </IconButton>
           </Box>
         </Toolbar>

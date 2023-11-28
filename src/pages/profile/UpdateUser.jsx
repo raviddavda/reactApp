@@ -57,7 +57,7 @@ const RegisterPage = () => {
   };
 
   const handleCancel = () => {
-    navigate(`${ROUTES.PROFILE}/${id}`);
+    window.history.back();
   };
 
   return (
@@ -66,42 +66,38 @@ const RegisterPage = () => {
         Edit user settings
       </Typography>
       <Divider sx={{ m: 2 }} />
-      <Box sx={{ mt: 3 }}>
-        <Grid container spacing={2}>
-          {inputsData.map((input, index) => (
-            <FieldTextComp
-              isError={Boolean(errorsState[input.value])}
-              helperText={errorsState[input.value]}
-              key={index}
-              id={input.id}
-              label={input.label}
-              required={input.required}
-              value={inputsValue[input.value]}
-              onChange={handleInputChange}
-            />
-          ))}
-        </Grid>
-        <Box sx={{ display: "flex", gap: 2 }}>
-          <Button
-            type="submit"
-            color="error"
-            fullWidth
-            variant="contained"
-            onClick={handleCancel}
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            onClick={handleSubmit}
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Update user setttings
-          </Button>
-        </Box>
+      <Grid container spacing={2}>
+        {inputsData.map((input, index) => (
+          <FieldTextComp
+            isError={Boolean(errorsState[input.value])}
+            helperText={errorsState[input.value]}
+            key={index}
+            id={input.id}
+            label={input.label}
+            required={input.required}
+            value={inputsValue[input.value]}
+            onChange={handleInputChange}
+          />
+        ))}
+      </Grid>
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Button
+          type="submit"
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{ mt: 2 }}
+        >
+          Update user setttings
+        </Button>
+        <Button
+          type="submit"
+          color="error"
+          variant="contained"
+          onClick={handleCancel}
+          sx={{ mt: 2 }}
+        >
+          Cancel
+        </Button>
       </Box>
     </ContainerComp>
   );

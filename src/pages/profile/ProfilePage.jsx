@@ -20,8 +20,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
 const ProfilePage = () => {
-  const [load, setLoad] = useState(false);
-  const [dataFromServer, setDataFromServer] = useState([]);
+  const [dataFromServer, setDataFromServer] = useState("");
   const [open, setOpen] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -35,9 +34,6 @@ const ProfilePage = () => {
       })
       .catch((error) => {
         toast.error("Could not fetch account!", { toastId: "profile" });
-      })
-      .finally(() => {
-        setLoad(true);
       });
   }, [id]);
 
@@ -48,6 +44,7 @@ const ProfilePage = () => {
       sessionStorage.removeItem("token");
       dispatch(authActions.logout());
       navigate(ROUTES.HOME);
+      toast.success("User Deleted!", { toastId: "delete" });
     } catch (error) {
       toast.error("Could not fetch user!", { toastId: "user" });
     }
@@ -63,7 +60,7 @@ const ProfilePage = () => {
 
   return (
     <ContainerComp>
-      {load ? (
+      {dataFromServer ? (
         <>
           <Box sx={{ display: "flex", gap: "1%" }}>
             <Typography color="primary" variant="h2" component="h2">

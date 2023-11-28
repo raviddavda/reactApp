@@ -65,7 +65,17 @@ const FavCardsPage = () => {
         Here will be displayed all the cards you liked.
       </Typography>
       <Divider sx={{ m: 2 }} />
-      <Grid container spacing={2}>
+      <Grid
+        container
+        spacing={5}
+        sx={{
+          mb: 10,
+          p: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-around",
+        }}
+      >
         {cards.filter((card) => card.likes).length ? (
           cards
             .filter((card) => card.likes)

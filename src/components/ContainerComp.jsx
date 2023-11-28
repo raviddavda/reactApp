@@ -8,7 +8,7 @@ const ContainerComp = ({ children }) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          padding: "3%",
+          padding: "2%",
           borderRadius: "10px",
           border: "1px solid lightgray",
         }}

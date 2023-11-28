@@ -85,24 +85,23 @@ const EditCardPage = () => {
           />
         ))}
       </Grid>
-      <Box sx={{ display: "flex", gap: 2 }}>
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Button
-          fullWidth
+          type="submit"
           color="error"
           variant="contained"
-          sx={{ mt: 2 }}
           onClick={handleCancel}
+          sx={{ mt: 2 }}
         >
           Cancel
         </Button>
         <Button
-          fullWidth
-          color="primary"
+          type="submit"
           variant="contained"
-          sx={{ mt: 2 }}
           onClick={handleUpdateChangesClick}
+          sx={{ mt: 2 }}
         >
-          Update Changes
+          Update Card Settings
         </Button>
       </Box>
     </ContainerComp>

@@ -18,10 +18,8 @@ import { toast } from "react-toastify";
 import ContainerComp from "../../components/ContainerComp";
 
 const CardPage = () => {
-  const [load, setLoad] = useState(false);
-  const [dataFromServer, setDataFromServer] = useState([]);
+  const [dataFromServer, setDataFromServer] = useState("");
   const [open, setOpen] = useState(false);
-
   const { id } = useParams();
 
   useEffect(() => {
@@ -32,10 +30,7 @@ const CardPage = () => {
       })
       .catch((error) =>
         toast.error("Could not fetch card!", { toastId: "card" })
-      )
-      .finally(() => {
-        setLoad(true);
-      });
+      );
   }, [id]);
 
   const handleDeleteCard = async (_id) => {
@@ -59,7 +54,7 @@ const CardPage = () => {
 
   return (
     <ContainerComp>
-      {load ? (
+      {dataFromServer ? (
         <>
           <Box>
             <Typography color="primary" variant="h2" component="h2">
