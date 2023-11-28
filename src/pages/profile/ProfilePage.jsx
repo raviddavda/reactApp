@@ -62,13 +62,26 @@ const ProfilePage = () => {
     <ContainerComp>
       {dataFromServer ? (
         <>
-          <Box sx={{ display: "flex", gap: "1%" }}>
+          <Box sx={{ display: "flex" }}>
             <Typography color="primary" variant="h2" component="h2">
               {dataFromServer.name.first} {dataFromServer.name.middle}{" "}
               {dataFromServer.name.last}
             </Typography>
           </Box>
-          <Divider />
+          <Divider sx={{ m: 2 }} />
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {dataFromServer.isAdmin ? (
+              <Typography variant="h4">ADMIN</Typography>
+            ) : (
+              ""
+            )}
+          </Box>
           <Box
             sx={{
               display: "flex",
@@ -100,16 +113,14 @@ const ProfilePage = () => {
                 </Typography>
               </Typography>
               <Typography component="span">
-                {dataFromServer.isAdmin ? <Typography>Admin</Typography> : ""}
-              </Typography>
-              <Typography component="span">
-                {dataFromServer.isBusiness ? (
-                  <Typography variant="h6">
-                    Account Level: <Typography>Business Account</Typography>
-                  </Typography>
-                ) : (
-                  "Guest Account"
-                )}
+                <Typography variant="h6">
+                  Account Level:
+                  {dataFromServer.isBusiness ? (
+                    <Typography>Business Account</Typography>
+                  ) : (
+                    <Typography>Guest Account</Typography>
+                  )}
+                </Typography>
               </Typography>
               <Typography variant="h6">
                 Account ID: <Typography>{dataFromServer._id}</Typography>

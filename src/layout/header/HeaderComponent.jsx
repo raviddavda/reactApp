@@ -84,7 +84,7 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
             variant="h6"
             to={ROUTES.HOME}
             color="inherit"
-            sx={{ textDecoration: "none" }}
+            sx={{ textDecoration: "none", pr: 1 }}
           >
             BCard
           </Typography>

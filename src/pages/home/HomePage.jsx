@@ -32,7 +32,7 @@ const HomePage = () => {
       .catch((error) => {
         toast.error("Could not fetch cards!", { toastId: "cards" });
       });
-  }, []);
+  }, [userData]);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -131,7 +131,6 @@ const HomePage = () => {
           alignItems: "center",
           mb: 10,
         }}
-        size="large"
         color="primary"
         shape="rounded"
         variant="outlined"

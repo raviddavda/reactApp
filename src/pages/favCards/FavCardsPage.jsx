@@ -1,6 +1,6 @@
-import { Divider, Grid, Typography } from "@mui/material";
+import { Divider, Grid, Typography, Box } from "@mui/material";
 import axios from "axios";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import homePageNormalization from "../home/HomePageNormalize";
 import CardComponent from "../../components/CardComponent";
@@ -57,7 +57,7 @@ const FavCardsPage = () => {
   };
 
   return (
-    <Fragment>
+    <Box>
       <Typography variant="h2" component="h2" color="primary">
         Favourite Cards
       </Typography>
@@ -105,7 +105,7 @@ const FavCardsPage = () => {
           </Typography>
         )}
       </Grid>
-    </Fragment>
+    </Box>
   );
 };
 

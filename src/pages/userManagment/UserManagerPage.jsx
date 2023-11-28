@@ -1,6 +1,6 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Typography, Divider, Button } from "@mui/material";
+import { Typography, Divider, Button, Box } from "@mui/material";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import { useNavigate } from "react-router-dom";
@@ -96,7 +96,7 @@ const DataTable = () => {
   };
 
   return (
-    <Fragment>
+    <Box mb={8}>
       <Typography color="primary" variant="h2" component="h2">
         Sandbox
       </Typography>
@@ -114,7 +114,7 @@ const DataTable = () => {
           },
         }}
       />
-    </Fragment>
+    </Box>
   );
 };
 

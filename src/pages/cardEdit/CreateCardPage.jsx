@@ -46,8 +46,9 @@ const CreateCardPage = () => {
 
       const request = normalizeCardData(inputsValue);
 
-      const { data } = await axios.post("/cards", request);
-      navigate(ROUTES.HOME);
+      await axios.post("/cards", request);
+      toast.success("Added a new card!", { toastId: "cardcreate" });
+      navigate(ROUTES.MYCARDS);
     } catch (err) {
       toast.error("A card already exists with that Email", {
         toastId: "createCard",

@@ -112,11 +112,10 @@ const CardPage = () => {
                 width: { md: "30%", xs: "100%" },
                 display: "flex",
                 justifyContent: { xs: "center" },
-                m: { xs: 1 },
               }}
             >
               <img
-                style={{ width: "350px" }}
+                style={{ maxWidth: "450px", minWidth: "200px" }}
                 src={dataFromServer.image.url}
                 alt={dataFromServer.image.alt}
               />

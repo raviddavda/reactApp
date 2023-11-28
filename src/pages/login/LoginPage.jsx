@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ROUTES from "../../routes/ROUTES";
@@ -26,9 +26,18 @@ const LoginPage = () => {
   });
   const [rememberMe, setRememberMe] = useState(true);
   const [errorsState, setErrorsState] = useState(false);
+  const [enableSubmit, setEnableSubmit] = useState(false);
 
   const navigate = useNavigate();
   const autoLogin = useAutoLogin();
+
+  useEffect(() => {
+    if (inputsValue.email !== "" && inputsValue.password !== "") {
+      setEnableSubmit(true);
+    } else {
+      setEnableSubmit(false);
+    }
+  }, [inputsValue]);
 
   const handleInputsChange = (e) => {
     setInputsValue((currentState) => ({
@@ -129,7 +138,11 @@ const LoginPage = () => {
         }
         label="Remember me"
       />
-      <Button variant="contained" onClick={handleBtnClick}>
+      <Button
+        variant="contained"
+        onClick={handleBtnClick}
+        disabled={!enableSubmit}
+      >
         Sign In
       </Button>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>

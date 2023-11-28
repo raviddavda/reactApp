@@ -1,11 +1,10 @@
-import { Divider, Typography } from "@mui/material";
-import { Fragment } from "react";
+import { Divider, Typography, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
 
 const AboutPage = () => {
   return (
-    <Fragment>
+    <Box mb={8}>
       <Typography color="primary" component="h1" variant="h1">
         About Us
       </Typography>
@@ -65,7 +64,7 @@ const AboutPage = () => {
         Join BCard today and redefine the way you network and showcase your
         identity through stunning business card designs!
       </Typography>
-    </Fragment>
+    </Box>
   );
 };
 

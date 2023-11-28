@@ -62,7 +62,7 @@ const MyCardsPage = () => {
   };
 
   return (
-    <Box>
+    <Box mb={8}>
       <Typography variant="h2" component="h2" color="primary" sx={{ mb: 2 }}>
         My Cards
       </Typography>
