@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# Business Card Website - React App Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project aims to create a user-friendly platform for creating and sharing digital business cards.
 
-## Available Scripts
+## About
 
-In the project directory, you can run:
+This React app serves as a platform for creating and sharing digital business cards. Users can easily create their personalized business cards, like other cards and share, with a register and login system.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<li><strong>Login System: </strong>People can registed and login to access various functions such as creating, editing and liking cards.</li>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<li><strong>Creating Cards: </strong>Registered users can create business cards for other people to view and like.</li>
 
-### `npm test`
+<li><strong>Edit Existing Cards: </strong>Users can edit and update card settings.</li>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<li><strong>Admin Mode: </strong>Admin users have special access to user management panel where they can edit and delete other users.</li>
 
-### `npm run build`
+<li><strong>Dark Mode: </strong>Toggle button for toggeling between light and dark mode themes.</li>
+ 
+## Technologies Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<li>HTML/CSS</li>
+<li>JavaScript</li>
+<li>ReactJS</li>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## npm Addons
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<li>axios</li>
+<li>Material Design</li>
+<li>twin-moon-color</li>
+<li>Joi Validations</li>
+<li>react-redux</li>
+<li>react-router-dom</li>
+<li>react-toastify</li>
+<li>jwt-decode</li>
