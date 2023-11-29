@@ -8,7 +8,7 @@ This React app serves as a platform for creating and sharing digital business ca
 
 ## Features
 
-<li><strong>Login System: </strong>People can registed and login to access various functions such as creating, editing and liking cards.</li>
+<li><strong>Login System: </strong>People can register and login to access various functions such as creating, editing and liking cards.</li>
 
 <li><strong>Creating Cards: </strong>Registered users can create business cards for other people to view and like.</li>
 
