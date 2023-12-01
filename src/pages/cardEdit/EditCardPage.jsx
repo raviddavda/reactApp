@@ -50,12 +50,22 @@ const EditCardPage = () => {
       await axios.put(`/cards/${id}`, request);
       toast.success("Card updated successesfuly!", {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 1000,
+        hideProgressBar: true,
         closeOnClick: true,
+        draggable: true,
+        theme: localStorage.getItem("darkMode") ? "dark" : "light",
+        toastId: "cardupd",
       });
       navigate(ROUTES.MYCARDS);
     } catch (err) {
       toast.error("Only Admin or the card creator can do this!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+        theme: localStorage.getItem("darkMode") ? "dark" : "light",
         toastId: "editCard",
       });
     }

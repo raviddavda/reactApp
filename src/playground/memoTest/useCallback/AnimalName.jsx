@@ -2,7 +2,6 @@ import { Button } from "@mui/material";
 import { memo } from "react";
 
 const AnimalName = ({ children, id, onShowName }) => {
-  console.log("AnimalName");
   const handleClick = () => {
     onShowName(id);
   };

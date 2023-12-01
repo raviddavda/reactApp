@@ -18,6 +18,7 @@ import { validateLogin } from "../../validations/loginValidation";
 import useAutoLogin from "../../hooks/useAutoLogin";
 import ContainerComp from "../../components/ContainerComp";
 import { storeToken } from "../../service/storageService";
+import toastMessage from "../../components/toastMessage";
 
 const LoginPage = () => {
   const [inputsValue, setInputsValue] = useState({
@@ -65,28 +66,18 @@ const LoginPage = () => {
         password: inputsValue.password,
       });
       storeToken(data, rememberMe);
-      toast.success("Logged in", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toastMessage("Logged In!", "login");
       autoLogin(true);
       navigate(ROUTES.HOME);
     } catch (error) {
       toast.error(error.response.data, {
         position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
+        autoClose: 1000,
+        hideProgressBar: true,
         closeOnClick: true,
-        pauseOnHover: true,
         draggable: true,
-        progress: undefined,
-        theme: "light",
+        theme: localStorage.getItem("darkMode") ? "dark" : "light",
+        toastId: "logerr",
       });
     }
   };
@@ -105,6 +96,7 @@ const LoginPage = () => {
             id="email"
             label="Email"
             variant="outlined"
+            type="email"
             autoFocus
             fullWidth
             required

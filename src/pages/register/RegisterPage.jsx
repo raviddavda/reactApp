@@ -64,11 +64,24 @@ const RegisterPage = () => {
       await axios.post("/users", request);
       toast.success("Welcome, Please log in", {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+        theme: localStorage.getItem("darkMode") ? "dark" : "light",
+        toastId: "register",
       });
       navigate(ROUTES.LOGIN);
     } catch (error) {
-      toast.error(error.response.data, { toastId: "login" });
+      toast.error(error.response.data, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+        theme: localStorage.getItem("darkMode") ? "dark" : "light",
+        toastId: "login",
+      });
     }
   };
 
@@ -88,7 +101,7 @@ const RegisterPage = () => {
               id={input.id}
               label={input.label}
               required={input.required}
-              type={input.password}
+              type={input.type}
               value={inputsValue[input.value]}
               onChange={handleInputChange}
             />

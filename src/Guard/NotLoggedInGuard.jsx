@@ -10,6 +10,12 @@ const NotLoggedInGuard = ({ children }) => {
     return children;
   } else {
     toast.error("You are already logged in!", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      draggable: true,
+      theme: localStorage.getItem("darkMode") ? "dark" : "light",
       toastId: "guard",
     });
     return <Navigate to={ROUTES.HOME} replace={true} />;

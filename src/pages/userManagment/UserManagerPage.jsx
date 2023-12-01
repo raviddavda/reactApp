@@ -20,7 +20,15 @@ const DataTable = () => {
         setDataFromServer(data);
       })
       .catch((error) => {
-        toast.error("Could not fetch users!", { toasId: "fetch" });
+        toast.error("Could not fetch users!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
+          toasId: "fetch",
+        });
       });
   };
 
@@ -87,11 +95,26 @@ const DataTable = () => {
   const handleDeleteUser = async ({ id }) => {
     try {
       await axios.delete(`/users/${id}`);
-      toast.success("User Deleted!", { toastId: "delete" });
+      toast.success("User Deleted!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+        theme: localStorage.getItem("darkMode") ? "dark" : "light",
+        toastId: "delete",
+      });
       userFetch();
     } catch (error) {
-      console.log(id);
-      toast.error("Could not fetch user!", { toastId: "user" });
+      toast.error("Could not fetch user!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+        theme: localStorage.getItem("darkMode") ? "dark" : "light",
+        toastId: "user",
+      });
     }
   };
 

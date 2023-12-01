@@ -6,11 +6,9 @@ const animalsArr = ["dog", "cat", "mouse"];
 
 const RenderPage9 = () => {
   const [changeState, setChangeState] = useState(true);
-  console.log("component rerender");
 
   const handleState = () => {
     setChangeState(!changeState);
-    console.log(changeState);
   };
 
   return (

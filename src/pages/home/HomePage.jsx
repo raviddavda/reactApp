@@ -15,6 +15,7 @@ const HomePage = () => {
   const [dataFromServer, setDataFromServer] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [like, setLike] = useState(false);
   const navigate = useNavigate();
   const userData = useSelector((bigPie) => bigPie.authSlice.userData);
   const query = useQueryParams();
@@ -30,7 +31,15 @@ const HomePage = () => {
         setTotalPages(Math.ceil(data.length / itemsPerPage));
       })
       .catch((error) => {
-        toast.error("Could not fetch cards!", { toastId: "cards" });
+        toast.error("Could not fetch cards!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
+          toastId: "cards",
+        });
       });
   }, [userData]);
 
@@ -56,6 +65,12 @@ const HomePage = () => {
       .then((response) => {})
       .catch((error) => {
         toast.error("Only Admin or the card creator can do this!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
           toastId: "delete",
         });
       });
@@ -68,17 +83,25 @@ const HomePage = () => {
   const handleFavCard = async (_id) => {
     await axios
       .patch(`/cards/${_id}`)
-      .then((response) => {
-        window.location.reload();
+      .then(({ data }) => {
+        setLike(!like);
       })
       .catch((error) => {
-        toast.error("Log in to like a card!", { toastId: "fav" });
+        toast.error("Log in to like a card!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
+          toastId: "fav",
+        });
       });
   };
 
   const handlePhoneClick = (_id) => {
-    dataFromServer.map((card) =>
-      card._id === _id ? window.open(`tel:${card.phone}`) : ""
+    dataFromServer.map(
+      (card) => card._id === _id && window.open(`tel:${card.phone}`)
     );
   };
 

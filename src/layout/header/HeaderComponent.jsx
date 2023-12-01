@@ -6,6 +6,7 @@ import {
   IconButton,
   Typography,
   MenuItem,
+  MenuList,
   Menu,
   Switch,
 } from "@mui/material";
@@ -70,8 +71,21 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleProfileBtn}>Profile</MenuItem>
-      <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
+      {userData ? (
+        <MenuList>
+          <MenuItem onClick={handleProfileBtn}>Profile</MenuItem>
+          <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
+        </MenuList>
+      ) : (
+        <MenuItem
+          onClick={() => {
+            handleMenuClose();
+            navigate(ROUTES.LOGIN);
+          }}
+        >
+          Login
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -91,7 +105,7 @@ const HeaderComponent = ({ isDarkTheme, onThemeChange }) => {
           <SearchComp />
           <Box sx={{ flexGrow: 1 }} />
           <LightModeIcon color="inherit" />
-          <Switch checked={isDarkTheme} onChange={handleThemeChange} />
+          <Switch checked={!!isDarkTheme} onChange={handleThemeChange} />
           <DarkModeIcon color="inherit" />
           <Box sx={{ display: "flex" }}>
             <IconButton

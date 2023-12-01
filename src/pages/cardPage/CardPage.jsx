@@ -29,7 +29,15 @@ const CardPage = () => {
         setDataFromServer(data);
       })
       .catch((error) =>
-        toast.error("Could not fetch card!", { toastId: "card" })
+        toast.error("Could not fetch card!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
+          toastId: "card",
+        })
       );
   }, [id]);
 
@@ -39,6 +47,12 @@ const CardPage = () => {
       .then((response) => {})
       .catch((error) => {
         toast.error("Only Admin or the card creator can do this!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
           toastId: "delete",
         });
       });

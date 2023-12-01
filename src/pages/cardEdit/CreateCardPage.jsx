@@ -47,10 +47,24 @@ const CreateCardPage = () => {
       const request = normalizeCardData(inputsValue);
 
       await axios.post("/cards", request);
-      toast.success("Added a new card!", { toastId: "cardcreate" });
+      toast.success("Added a new card!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+        theme: localStorage.getItem("darkMode") ? "dark" : "light",
+        toastId: "cardcreate",
+      });
       navigate(ROUTES.MYCARDS);
     } catch (err) {
       toast.error("A card already exists with that Email", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+        theme: localStorage.getItem("darkMode") ? "dark" : "light",
         toastId: "createCard",
       });
     }

@@ -8,7 +8,15 @@ const AdminGuard = ({ children }) => {
   if (userData && userData.isAdmin) {
     return children;
   } else {
-    toast.error("Accesable only by Admin Account", { toastId: "admin" });
+    toast.error("Accesable only by Admin Account", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      draggable: true,
+      theme: localStorage.getItem("darkMode") ? "dark" : "light",
+      toastId: "admin",
+    });
     return <Navigate to={ROUTES.HOME} replace={true} />;
   }
 };

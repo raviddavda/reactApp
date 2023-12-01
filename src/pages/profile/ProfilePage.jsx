@@ -18,6 +18,7 @@ import ContainerComp from "../../components/ContainerComp";
 import { authActions } from "../../store/auth";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import toastMessage from "../../components/toastMessage";
 
 const ProfilePage = () => {
   const [dataFromServer, setDataFromServer] = useState("");
@@ -33,7 +34,15 @@ const ProfilePage = () => {
         setDataFromServer(data);
       })
       .catch((error) => {
-        toast.error("Could not fetch account!", { toastId: "profile" });
+        toast.error("Could not fetch account!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
+          toastId: "profile",
+        });
       });
   }, [id]);
 
@@ -44,9 +53,17 @@ const ProfilePage = () => {
       sessionStorage.removeItem("token");
       dispatch(authActions.logout());
       navigate(ROUTES.HOME);
-      toast.success("User Deleted!", { toastId: "delete" });
+      toastMessage("User Deleted!", "delete");
     } catch (error) {
-      toast.error("Could not fetch user!", { toastId: "user" });
+      toast.error("Could not fetch user!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+        theme: localStorage.getItem("darkMode") ? "dark" : "light",
+        toastId: "user",
+      });
     }
   };
 
@@ -76,10 +93,8 @@ const ProfilePage = () => {
               justifyContent: "center",
             }}
           >
-            {dataFromServer.isAdmin ? (
+            {dataFromServer.isAdmin && (
               <Typography variant="h4">ADMIN</Typography>
-            ) : (
-              ""
             )}
           </Box>
           <Box
@@ -105,7 +120,9 @@ const ProfilePage = () => {
               <Typography variant="h6">
                 Address:{" "}
                 <Typography>
-                  {dataFromServer.address.state},{" "}
+                  {dataFromServer.address.state === "not defined"
+                    ? ""
+                    : `${dataFromServer.address.state}, `}
                   {dataFromServer.address.country},{" "}
                   {dataFromServer.address.street},{" "}
                   {dataFromServer.address.houseNumber},{" "}

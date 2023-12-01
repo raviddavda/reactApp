@@ -24,7 +24,15 @@ const MyCardsPage = () => {
         setDataFromServer(data);
       })
       .catch((error) =>
-        toast.error("Could not fetch cards!", { toastId: "fetch" })
+        toast.error("Could not fetch cards!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
+          toastId: "fetch",
+        })
       )
       .finally(() => {
         setLoad(true);
@@ -41,6 +49,12 @@ const MyCardsPage = () => {
       .then((response) => {})
       .catch((error) => {
         toast.error("Only Admin or the card creator can do this!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
           toastId: "delete",
         });
       });
@@ -51,7 +65,15 @@ const MyCardsPage = () => {
       .patch(`/cards/${_id}`)
       .then((response) => {})
       .catch((error) => {
-        toast.error("Could not fetch cards!", { toastId: "fav" });
+        toast.error("Could not fetch cards!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
+          toastId: "fav",
+        });
       });
   };
 
@@ -71,14 +93,24 @@ const MyCardsPage = () => {
       </Typography>
       <Divider sx={{ m: 2 }} />
       {load ? (
-        <Grid container spacing={2}>
+        <Grid
+          container
+          spacing={5}
+          sx={{
+            mb: 10,
+            p: 2,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+          }}
+        >
           {dataFromServer.length === 0 && (
             <Typography m={2} variant="h5">
               You have not created any cards.
             </Typography>
           )}
           {dataFromServer.map((card) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={card._id}>
+            <Grid item xs={12} md={4} key={card._id}>
               <CardComponent
                 _id={card._id}
                 title={card.title}

@@ -20,6 +20,11 @@ const LayoutComponent = ({ children }) => {
   });
 
   const handleThemeChange = (checked) => {
+    if (checked) {
+      localStorage.setItem("darkMode", true);
+    } else {
+      localStorage.removeItem("darkMode");
+    }
     dispatch(darkThemeActions.changeTheme());
   };
 

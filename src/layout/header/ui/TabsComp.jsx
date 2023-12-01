@@ -45,7 +45,7 @@ function MyTabs() {
     if (adminAccount) {
       setIsAdmin(true);
     }
-  }, [loggedIn]);
+  }, [loggedIn, adminAccount]);
 
   return (
     <Tabs
@@ -100,6 +100,7 @@ function MyTabs() {
 }
 
 function CurrentRoute() {
+  //eslint-disable-next-line
   const location = useLocation();
 }
 

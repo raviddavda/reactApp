@@ -13,7 +13,6 @@ const AnimalComponent = () => {
   const handleShowName = useCallback((id) => {
     for (let animal of animals) {
       if (animal.id === id) {
-        console.log(animal.name);
         break;
       }
     }

@@ -10,13 +10,12 @@ const AuthGuardBiz = ({ children }) => {
   } else {
     toast.error("Only a Business Account can do that!", {
       position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
+      autoClose: 1000,
+      hideProgressBar: true,
       closeOnClick: true,
-      pauseOnHover: true,
       draggable: true,
-      progress: undefined,
-      theme: "light",
+      theme: localStorage.getItem("darkMode") ? "dark" : "light",
+      toastId: "business",
     });
     return <Navigate to={ROUTES.HOME} replace={true} />;
   }

@@ -45,14 +45,27 @@ const RegisterPage = () => {
 
       const request = normalizeData(inputsValue);
 
-      const { data } = await axios.put(`/users/${id}`, request);
+      await axios.put(`/users/${id}`, request);
       toast.success("Details Updated!", {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+        theme: localStorage.getItem("darkMode") ? "dark" : "light",
+        toastId: "userupd",
       });
       navigate(`${ROUTES.PROFILE}/${id}`);
     } catch (err) {
-      toast.error("Could not update details!", { toastId: "userUpdate" });
+      toast.error("Could not update details!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+        theme: localStorage.getItem("darkMode") ? "dark" : "light",
+        toastId: "userUpdate",
+      });
     }
   };
 

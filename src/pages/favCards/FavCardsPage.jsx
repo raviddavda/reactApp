@@ -22,7 +22,15 @@ const FavCardsPage = () => {
         setCards(data);
       })
       .catch((error) => {
-        toast.error("Could not fetch cards!", { toastId: "cardPage" });
+        toast.error("Could not fetch cards!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
+          toastId: "cardPage",
+        });
       });
   }, [userData._id]);
 
@@ -36,6 +44,12 @@ const FavCardsPage = () => {
       .then((response) => {})
       .catch((error) => {
         toast.error("Only Admin or the card creator can do this!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
           toastId: "delete",
         });
       });
@@ -46,7 +60,15 @@ const FavCardsPage = () => {
       .patch(`/cards/${_id}`)
       .then((response) => {})
       .catch((error) => {
-        toast.error("Could not fetch cards!", { toastId: "fav" });
+        toast.error("Could not fetch cards!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          theme: localStorage.getItem("darkMode") ? "dark" : "light",
+          toastId: "fav",
+        });
       });
   };
 
@@ -80,7 +102,7 @@ const FavCardsPage = () => {
           cards
             .filter((card) => card.likes)
             .map((card) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={card._id}>
+              <Grid item xs={12} md={4} key={card._id}>
                 <CardComponent
                   _id={card._id}
                   title={card.title}
